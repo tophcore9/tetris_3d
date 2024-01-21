@@ -3,6 +3,8 @@
 Camera3D camera = {};
 Color current_color = {};
 struct Figure *current_figure = {};
+float game_speed_active = 0.4f;
+float game_speed_default = 0.4f;
 
 void run()
 {
@@ -13,8 +15,9 @@ void run()
 
 void startup()
 {
-    srand(time(NULL));
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Tetris");
+    srand(time(NULL));
+
     current_color = RandomColor();
     current_figure = RandomFigure();
 
@@ -35,8 +38,18 @@ void startup()
 }
 void update()
 {
+    clock_t startTime = clock();
+    float elapsedTime;
+
+    /* Main cycle */
     while (!WindowShouldClose())
     {
+        elapsedTime = (float)(clock() - startTime) / CLOCKS_PER_SEC;
+        if (elapsedTime >= game_speed_active) /* Every 400 ms */
+        {
+            OffsetFigureY(current_figure, -1.f);
+            startTime = clock();
+        }
         render();
         event_handler();
     }
@@ -47,12 +60,12 @@ void render()
         DrawBackground();
 
         BeginMode3D(camera);
-#ifdef DEBUG_MODE
-            DrawFigure(current_figure, 0, 0, current_color);
-            DrawCubeWires(cube, 1.f, 1.f, 1.f, LIME);
-#endif
             DrawFigure(current_figure, current_color);
             DrawWalls();
+#ifdef DEBUG_MODE
+            DrawFigure(current_figure, current_color);
+            DrawCubeWires(cube, 1.f, 1.f, 1.f, LIME);
+#endif
         EndMode3D();
 
 #ifdef DEBUG_MODE
@@ -77,11 +90,13 @@ void event_handler()
     else if (IsKeyPressed(KEY_RIGHT))
         cube.x += 1.f;
 #endif
-    if (IsKeyPressed(KEY_UP))
-        OffsetFigureY(current_figure, 1.f);
-    else if (IsKeyPressed(KEY_DOWN))
-        OffsetFigureY(current_figure, -1.f);
-    else if (IsKeyPressed(KEY_LEFT))
+    if (IsKeyDown(KEY_DOWN))
+        game_speed_active = game_speed_default / 5;
+    else
+        game_speed_active = game_speed_default;
+
+
+    if (IsKeyPressed(KEY_LEFT))
         OffsetFigureX(current_figure, -1.f);
     else if (IsKeyPressed(KEY_RIGHT))
         OffsetFigureX(current_figure, 1.f);

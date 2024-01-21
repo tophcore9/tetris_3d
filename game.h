@@ -9,6 +9,8 @@
 extern Camera3D camera;
 extern Color current_color;
 extern struct Figure* current_figure;
+extern float game_speed_active;
+extern float game_speed_default;
 
 #ifdef DEBUG_MODE
 static Vector3 cube;
