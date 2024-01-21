@@ -33,5 +33,6 @@ void DrawWalls()
     DrawCube(walls.right, 0.5f, 20.f, 1.f, walls.color);
     DrawCubeWires(walls.right, 0.5f, 20.f, 1.f, walls.wires_color);
 }
+
 struct Walls* GetWalls()
 { return &walls; }
