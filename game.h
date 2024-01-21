@@ -4,15 +4,17 @@
 #include "env.h"
 #include "figures.h"
 
-static Camera3D camera;
-static Vector3 cube;
+#define DEBUG
 
-/* FOR DEBUG BEGIN */
+static Camera3D camera;
+static Color randomized;
+
+#ifdef DEBUG
+static Vector3 cube;
 static char x_pos[12];
 static char* y_pos[12];
 static char* z_pos[12];
-static Color randomized;
-/* FOR DEBUG END */
+#endif
 
 void run();
 void startup();
