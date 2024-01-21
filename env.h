@@ -1,0 +1,21 @@
+#ifndef TETRIS_ENV_H
+#define TETRIS_ENV_H
+
+#include <raylib.h>
+#include <stdio.h>
+
+static struct Walls
+{
+    Vector3 up;
+    Vector3 down;
+    Vector3 left;
+    Vector3 right;
+    Color color;
+    Color wires_color;
+} walls;
+
+void InitWalls();
+void DrawWalls();
+struct Walls* GetWalls();
+
+#endif //TETRIS_ENV_H

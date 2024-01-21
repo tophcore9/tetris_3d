@@ -20,12 +20,7 @@ void startup()
     camera.projection = CAMERA_PERSPECTIVE;
     camera.up = (Vector3){0.0f, 1.0f, 0.0f};
 
-    walls.left = (Vector3){5.75f, 0.5f, -18.f};
-    walls.right = (Vector3){-4.75f, 0.5f, -18.f};
-    walls.up = (Vector3){0.5f, 11.f, -18.f};
-    walls.down = (Vector3){0.5f, -10.f, -18.f};
-    walls.color = GRAY;
-    walls.wires_color = BLACK;
+    InitWalls();
 
     DisableCursor();
     SetTargetFPS(60);
@@ -48,37 +43,23 @@ void render2D()
                            (Color){123, 32, 43, 255},
                            (Color){23, 12, 43, 255});
         event_handler();
-        render3D();
+        BeginMode3D(camera);
+            DrawWalls();
+        EndMode3D();
     EndDrawing();
-}
-void render3D()
-{
-    BeginMode3D(camera);
-        DrawCube(walls.up, 11.5f, 1.f, 1.f, walls.color);
-        DrawCubeWires(walls.up, 11.5f, 1.f, 1.f, walls.wires_color);
-
-        DrawCube(walls.down, 11.5f, 1.f, 1.f, walls.color);
-        DrawCubeWires(walls.down, 11.5f, 1.f, 1.f, walls.wires_color);
-
-        DrawCube(walls.left, 0.5f, 20.f, 1.f, walls.color);
-        DrawCubeWires(walls.left, 0.5f, 20.f, 1.f, walls.wires_color);
-
-        DrawCube(walls.right, 0.5f, 20.f, 1.f, walls.color);
-        DrawCubeWires(walls.right, 0.5f, 20.f, 1.f, walls.wires_color);
-    EndMode3D();
 }
 void event_handler()
 {
     if (IsKeyDown(KEY_SPACE))
         DrawText("Good", 0, 0, 40, GRAY);
     else if (IsKeyPressed(KEY_UP))
-        walls.up.y += 1.f;
+        GetWalls()->up.y += 1.f;
     else if (IsKeyPressed(KEY_DOWN))
-        walls.up.y -= 1.f;
+        GetWalls()->up.y -= 1.f;
     else if (IsKeyPressed(KEY_LEFT))
-        walls.up.x -= 1.f;
+        GetWalls()->up.x -= 1.f;
     else if (IsKeyPressed(KEY_RIGHT))
-        walls.up.x += 1.f;
+        GetWalls()->up.x += 1.f;
 }
 void unloading()
 {

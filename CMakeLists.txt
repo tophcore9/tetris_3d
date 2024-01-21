@@ -8,7 +8,9 @@ set(RAYLIB_LIB ${CMAKE_SOURCE_DIR}/raylib-5.0/lib/libraylib.a)
 
 add_executable(tetris main.c
         figures.c
-        game.c)
+        game.c
+        env.c
+        env.h)
 
 target_include_directories(tetris PRIVATE ${RAYLIB_INCLUDE})
 target_link_libraries(tetris ${RAYLIB_LIB} opengl32 gdi32 winmm)

@@ -1,8 +1,8 @@
-#ifndef FIGURES_H
-#define FIGURES_H
+#ifndef TETRIS_FIGURES_H
+#define TETRIS_FIGURES_H
 
-#include "init.h"
+#include "env.h"
 
 bool CheckCollisionCubes(Vector3 cube1, Vector3 cube2);
 
-#endif //FIGURES_H
+#endif //TETRIS_FIGURES_H
