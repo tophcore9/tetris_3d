@@ -3,9 +3,6 @@
 
 #include "env.h"
 
-
-static int SCREEN_WIDTH;
-static int SCREEN_HEIGHT;
 static Camera3D camera;
 
 void run();

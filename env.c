@@ -1,5 +1,15 @@
 #include "env.h"
 
+void DrawBackground()
+{
+    ClearBackground(RAYWHITE);
+    /* Gradient as a background */
+    DrawCircleGradient(SCREEN_WIDTH / 2,
+                       SCREEN_HEIGHT / 2,
+                       (float)SCREEN_WIDTH,
+                       (Color){123, 32, 43, 255},
+                       (Color){23, 12, 43, 255});
+}
 void InitWalls()
 {
     walls.left = (Vector3){5.75f, 0.5f, -18.f};
@@ -24,6 +34,4 @@ void DrawWalls()
     DrawCubeWires(walls.right, 0.5f, 20.f, 1.f, walls.wires_color);
 }
 struct Walls* GetWalls()
-{
-    return &walls;
-}
+{ return &walls; }
