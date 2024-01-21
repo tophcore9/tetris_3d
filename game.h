@@ -11,6 +11,7 @@ static Vector3 cube;
 static char x_pos[12];
 static char* y_pos[12];
 static char* z_pos[12];
+static Color randomized;
 /* FOR DEBUG END */
 
 void run();

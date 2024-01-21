@@ -9,10 +9,12 @@ void run()
 
 void startup()
 {
+    srand(time(NULL));
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Tetris");
+    randomized = RandomColor();
 
     /* FOR DEBUG BEGIN */
-    cube = (Vector3){1.f, 11.f, -18.f};
+    cube = (Vector3){-4.f, 10.f, -18.f};
     /* FOR DEBUG END */
 
     camera.target = (Vector3){0.5f, 1.0f, 0.0f};
@@ -41,10 +43,10 @@ void render()
 
         BeginMode3D(camera);
             /* FOR DEBUG BEGIN */
-            DrawFigure(SpawnI(), 2, -5);
-            DrawFigure(SpawnZ(), 5, -2);
-            DrawFigure(SpawnSquare(), 2, 0);
-            DrawFigure(SpawnT(), -1, -5);
+            DrawFigure(SpawnI(), 2, -5, randomized);
+            DrawFigure(SpawnZ(), 5, -2, randomized);
+            DrawFigure(SpawnSquare(), 2, 0, randomized);
+            DrawFigure(SpawnT(), -1, -5, randomized);
             DrawCubeWires(cube, 1.f, 1.f, 1.f, LIME);
             /* FOR DEBUG END */
 

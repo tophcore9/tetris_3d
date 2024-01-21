@@ -54,7 +54,7 @@ struct Figure* SpawnT()
     figure->block4 = (Vector3){0.f, 8.f, -18.f};
     return figure;
 }
-void DrawFigure(struct Figure* figure, float offsetX, float offsetY)
+void DrawFigure(struct Figure* figure, float offsetX, float offsetY, Color color)
 {
     /* X offset */
     figure->block1.x += offsetX;
@@ -68,12 +68,32 @@ void DrawFigure(struct Figure* figure, float offsetX, float offsetY)
     figure->block3.y += offsetY;
     figure->block4.y += offsetY;
 
-    DrawCube(figure->block1, 1.f, 1.f, 1.f, RED);
+    DrawCube(figure->block1, 1.f, 1.f, 1.f, color);
     DrawCubeWires(figure->block1, 1.f, 1.f, 1.f, BLACK);
-    DrawCube(figure->block2, 1.f, 1.f, 1.f, RED);
+    DrawCube(figure->block2, 1.f, 1.f, 1.f, color);
     DrawCubeWires(figure->block2, 1.f, 1.f, 1.f, BLACK);
-    DrawCube(figure->block3, 1.f, 1.f, 1.f, RED);
+    DrawCube(figure->block3, 1.f, 1.f, 1.f, color);
     DrawCubeWires(figure->block3, 1.f, 1.f, 1.f, BLACK);
-    DrawCube(figure->block4, 1.f, 1.f, 1.f, RED);
+    DrawCube(figure->block4, 1.f, 1.f, 1.f, color);
     DrawCubeWires(figure->block4, 1.f, 1.f, 1.f, BLACK);
+}
+
+Color RandomColor()
+{
+    int color_index = rand() % 6;
+    switch (color_index)
+    {
+        case 0:
+            return RED;
+        case 1:
+            return GREEN;
+        case 2:
+            return YELLOW;
+        case 3:
+            return BLUE;
+        case 4:
+            return ORANGE;
+        default:
+            return PURPLE;
+    }
 }
