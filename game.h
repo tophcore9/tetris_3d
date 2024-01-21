@@ -4,12 +4,13 @@
 #include "env.h"
 #include "figures.h"
 
-#define DEBUG
+//#define DEBUG_MODE
 
-static Camera3D camera;
-static Color randomized;
+extern Camera3D camera;
+extern Color current_color;
+extern struct Figure* current_figure;
 
-#ifdef DEBUG
+#ifdef DEBUG_MODE
 static Vector3 cube;
 static char x_pos[12];
 static char* y_pos[12];

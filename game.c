@@ -1,5 +1,9 @@
 #include "game.h"
 
+Camera3D camera = {};
+Color current_color = {};
+struct Figure *current_figure = {};
+
 void run()
 {
     startup();
@@ -11,9 +15,10 @@ void startup()
 {
     srand(time(NULL));
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Tetris");
-    randomized = RandomColor();
+    current_color = RandomColor();
+    current_figure = RandomFigure();
 
-#ifdef DEBUG
+#ifdef DEBUG_MODE
     cube = (Vector3){-4.f, 10.f, -18.f};
 #endif
 
@@ -42,18 +47,15 @@ void render()
         DrawBackground();
 
         BeginMode3D(camera);
-#ifdef DEBUG
-            DrawFigure(SpawnI(), 2, -5, randomized);
-            DrawFigure(SpawnZ(), 5, -2, randomized);
-            DrawFigure(SpawnSquare(), 2, 0, randomized);
-            DrawFigure(SpawnT(), -1, -5, randomized);
+#ifdef DEBUG_MODE
+            DrawFigure(current_figure, 0, 0, current_color);
             DrawCubeWires(cube, 1.f, 1.f, 1.f, LIME);
 #endif
-
+            DrawFigure(current_figure, current_color);
             DrawWalls();
         EndMode3D();
 
-#ifdef DEBUG
+#ifdef DEBUG_MODE
         snprintf(x_pos, 12, "X: %f", cube.x);
         snprintf(y_pos, 12, "Y: %f", cube.y);
         snprintf(z_pos, 12, "Z: %f", cube.z);
@@ -65,7 +67,7 @@ void render()
 }
 void event_handler()
 {
-#ifdef DEBUG
+#ifdef DEBUG_MODE
     if (IsKeyPressed(KEY_UP))
         cube.y += 1.f;
     else if (IsKeyPressed(KEY_DOWN))
@@ -75,6 +77,14 @@ void event_handler()
     else if (IsKeyPressed(KEY_RIGHT))
         cube.x += 1.f;
 #endif
+    if (IsKeyPressed(KEY_UP))
+        OffsetFigureY(current_figure, 1.f);
+    else if (IsKeyPressed(KEY_DOWN))
+        OffsetFigureY(current_figure, -1.f);
+    else if (IsKeyPressed(KEY_LEFT))
+        OffsetFigureX(current_figure, -1.f);
+    else if (IsKeyPressed(KEY_RIGHT))
+        OffsetFigureX(current_figure, 1.f);
 }
 void unloading()
 { CloseWindow(); }

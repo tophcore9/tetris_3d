@@ -12,62 +12,50 @@ bool CheckCollisionCubes(Vector3 cube1, Vector3 cube2)
 struct Figure* SpawnL()
 {
     struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
-    figure->block1 = (Vector3){-1.f, 9.f, -18.f};
-    figure->block2 = (Vector3){-1.f, 8.f, -18.f};
-    figure->block3 = (Vector3){-1.f, 7.f, -18.f};
-    figure->block4 = (Vector3){0.f, 7.f, -18.f};
+    figure->block1 = (Vector3){-4.f, 10.f, -18.f};
+    figure->block2 = (Vector3){-4.f, 9.f, -18.f};
+    figure->block3 = (Vector3){-4.f, 8.f, -18.f};
+    figure->block4 = (Vector3){-3.f, 8.f, -18.f};
     return figure;
 }
 struct Figure* SpawnI()
 {
     struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
-    figure->block1 = (Vector3){-1.f, 9.f, -18.f};
-    figure->block2 = (Vector3){-1.f, 8.f, -18.f};
-    figure->block3 = (Vector3){-1.f, 7.f, -18.f};
-    figure->block4 = (Vector3){-1.f, 6.f, -18.f};
+    figure->block1 = (Vector3){-4.f, 10.f, -18.f};
+    figure->block2 = (Vector3){-4.f, 9.f, -18.f};
+    figure->block3 = (Vector3){-4.f, 8.f, -18.f};
+    figure->block4 = (Vector3){-4.f, 7.f, -18.f};
     return figure;
 }
 struct Figure* SpawnSquare()
 {
     struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
-    figure->block1 = (Vector3){-1.f, 9.f, -18.f};
-    figure->block2 = (Vector3){0.f, 9.f, -18.f};
-    figure->block3 = (Vector3){-1.f, 8.f, -18.f};
-    figure->block4 = (Vector3){0.f, 8.f, -18.f};
+    figure->block1 = (Vector3){-4.f, 10.f, -18.f};
+    figure->block2 = (Vector3){-3.f, 10.f, -18.f};
+    figure->block3 = (Vector3){-4.f, 9.f, -18.f};
+    figure->block4 = (Vector3){-3.f, 9.f, -18.f};
     return figure;
 }
 struct Figure* SpawnZ()
 {
     struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
-    figure->block1 = (Vector3){-1.f, 9.f, -18.f};
-    figure->block2 = (Vector3){-1.f, 8.f, -18.f};
-    figure->block3 = (Vector3){0.f, 8.f, -18.f};
-    figure->block4 = (Vector3){0.f, 7.f, -18.f};
+    figure->block1 = (Vector3){-4.f, 10.f, -18.f};
+    figure->block2 = (Vector3){-4.f, 9.f, -18.f};
+    figure->block3 = (Vector3){-3.f, 9.f, -18.f};
+    figure->block4 = (Vector3){-3.f, 8.f, -18.f};
     return figure;
 }
 struct Figure* SpawnT()
 {
     struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
-    figure->block1 = (Vector3){-1.f, 9.f, -18.f};
-    figure->block2 = (Vector3){-1.f, 8.f, -18.f};
-    figure->block3 = (Vector3){-1.f, 7.f, -18.f};
-    figure->block4 = (Vector3){0.f, 8.f, -18.f};
+    figure->block1 = (Vector3){-4.f, 10.f, -18.f};
+    figure->block2 = (Vector3){-4.f, 9.f, -18.f};
+    figure->block3 = (Vector3){-4.f, 8.f, -18.f};
+    figure->block4 = (Vector3){-3.f, 9.f, -18.f};
     return figure;
 }
-void DrawFigure(struct Figure* figure, float offsetX, float offsetY, Color color)
+void DrawFigure(struct Figure* figure, Color color)
 {
-    /* X offset */
-    figure->block1.x += offsetX;
-    figure->block2.x += offsetX;
-    figure->block3.x += offsetX;
-    figure->block4.x += offsetX;
-
-    /* Y offset */
-    figure->block1.y += offsetY;
-    figure->block2.y += offsetY;
-    figure->block3.y += offsetY;
-    figure->block4.y += offsetY;
-
     DrawCube(figure->block1, 1.f, 1.f, 1.f, color);
     DrawCubeWires(figure->block1, 1.f, 1.f, 1.f, BLACK);
     DrawCube(figure->block2, 1.f, 1.f, 1.f, color);
@@ -76,6 +64,22 @@ void DrawFigure(struct Figure* figure, float offsetX, float offsetY, Color color
     DrawCubeWires(figure->block3, 1.f, 1.f, 1.f, BLACK);
     DrawCube(figure->block4, 1.f, 1.f, 1.f, color);
     DrawCubeWires(figure->block4, 1.f, 1.f, 1.f, BLACK);
+}
+struct Figure* OffsetFigureX(struct Figure* figure, float offsetX)
+{
+    /* X offset */
+    figure->block1.x += offsetX;
+    figure->block2.x += offsetX;
+    figure->block3.x += offsetX;
+    figure->block4.x += offsetX;
+}
+struct Figure* OffsetFigureY(struct Figure* figure, float offsetY)
+{
+    /* Y offset */
+    figure->block1.y += offsetY;
+    figure->block2.y += offsetY;
+    figure->block3.y += offsetY;
+    figure->block4.y += offsetY;
 }
 
 Color RandomColor()
@@ -95,5 +99,22 @@ Color RandomColor()
             return ORANGE;
         default:
             return PURPLE;
+    }
+}
+struct Figure* RandomFigure()
+{
+    int figure_index = rand() % 6;
+    switch (figure_index)
+    {
+        case 0:
+            return SpawnI();
+        case 1:
+            return SpawnL();
+        case 2:
+            return SpawnSquare();
+        case 3:
+            return SpawnT();
+        default:
+            return SpawnZ();
     }
 }

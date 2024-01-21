@@ -1396,7 +1396,7 @@ Detailed changes:
 [build] ADDED: Builder project template
 [build] ADDED: Compiler memory sanitizer for better debug
 [build] ADDED: CMake package target and CI auto-deploy tags
-[build] ADDED: DEBUG library building support
+[build] ADDED: DEBUG_MODE library building support
 [build] ADDED: Notepad++ NppExec scripts
 [build] REVIEWED: VS2015 and VS2017 projects
 [build] REVIEWED: Android APK build pipeline

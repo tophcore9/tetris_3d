@@ -14,12 +14,16 @@ struct Figure
 };
 
 bool CheckCollisionCubes(Vector3 cube1, Vector3 cube2);
-void DrawFigure(struct Figure* figure, float offsetX, float offsetY, Color color);
+void DrawFigure(struct Figure* figure, Color color);
 struct Figure* SpawnL();
 struct Figure* SpawnI();
 struct Figure* SpawnSquare();
 struct Figure* SpawnZ();
 struct Figure* SpawnT();
+struct Figure* OffsetFigureX(struct Figure* figure, float offsetX);
+struct Figure* OffsetFigureY(struct Figure* figure, float offsetY);
+
 Color RandomColor();
+struct Figure* RandomFigure();
 
 #endif //TETRIS_FIGURES_H
