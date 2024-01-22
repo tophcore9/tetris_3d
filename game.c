@@ -48,6 +48,11 @@ void update()
         if (elapsedTime >= game_speed_active) /* Every 400 ms */
         {
             OffsetFigureY(current_figure, -1.f);
+            if (CheckCollisionFigureY(current_figure, -10.f))
+            {
+                current_figure = RandomFigure();
+                current_color = RandomColor();
+            }
             startTime = clock();
         }
         render();
@@ -97,9 +102,11 @@ void event_handler()
 
 
     if (IsKeyPressed(KEY_LEFT))
-        OffsetFigureX(current_figure, -1.f);
-    else if (IsKeyPressed(KEY_RIGHT))
-        OffsetFigureX(current_figure, 1.f);
+        if (!CheckCollisionFigureX(current_figure, -4.f))
+            OffsetFigureX(current_figure, -1.f);
+    if (IsKeyPressed(KEY_RIGHT))
+        if (!CheckCollisionFigureX(current_figure, 5.f))
+            OffsetFigureX(current_figure, 1.f);
 }
 void unloading()
 { CloseWindow(); }

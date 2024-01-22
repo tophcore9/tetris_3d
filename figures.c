@@ -9,6 +9,37 @@ bool CheckCollisionCubes(Vector3 cube1, Vector3 cube2)
     else
         return false;
 }
+bool CheckCollisionFigureCube(struct Figure *figure, Vector3 cube)
+{
+    if (CheckCollisionCubes(figure->block1, cube) ||
+        CheckCollisionCubes(figure->block2, cube) ||
+        CheckCollisionCubes(figure->block3, cube) ||
+        CheckCollisionCubes(figure->block4, cube))
+        return true;
+    else
+        return false;
+}
+bool CheckCollisionFigureX(struct Figure *figure, float x)
+{
+    if (figure->block1.x == x ||
+        figure->block2.x == x ||
+        figure->block3.x == x ||
+        figure->block4.x == x)
+        return true;
+    else
+        return false;
+}
+bool CheckCollisionFigureY(struct Figure *figure, float y)
+{
+    if (figure->block1.y == y ||
+        figure->block2.y == y ||
+        figure->block3.y == y ||
+        figure->block4.y == y)
+        return true;
+    else
+        return false;
+}
+
 struct Figure* SpawnL()
 {
     struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));

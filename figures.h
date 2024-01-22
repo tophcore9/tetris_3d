@@ -14,6 +14,9 @@ struct Figure
 };
 
 bool CheckCollisionCubes(Vector3 cube1, Vector3 cube2);
+bool CheckCollisionFigureCube(struct Figure *figure, Vector3 cube);
+bool CheckCollisionFigureX(struct Figure *figure, float x);
+bool CheckCollisionFigureY(struct Figure *figure, float y);
 void DrawFigure(struct Figure* figure, Color color);
 struct Figure* SpawnL();
 struct Figure* SpawnI();
