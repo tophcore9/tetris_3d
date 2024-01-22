@@ -4,7 +4,7 @@
 #include "env.h"
 #include "figures.h"
 
-//#define DEBUG_MODE
+#define DEBUG_MODE
 
 extern Camera3D camera;
 //extern Color current_color;

@@ -52,9 +52,18 @@ void update()
         {
             if (CheckCollisionFigureY(current_figure, -9.f) || CheckCollisionAllFigures(*current_figure, 0, -1.f))
             {
+                /* Adding new figure into 'figures' array */
                 add_figure(current_figure);
                 current_figure = RandomFigure();
                 current_figure->color = RandomColor();
+
+                /* Checking solid rows and shifting if they are found */
+                CheckRows();
+//                for (int i = 0; i < figure_counter; ++i)
+//                {
+//                    for (int y = CheckRows(); y < 10; ++y)
+//                        OffsetFigureY(figures[i], -1.f);
+//                }
             }
             OffsetFigureY(current_figure, -1.f);
             startTime = clock();
@@ -74,7 +83,7 @@ void render()
                 DrawFigure(figures[i], figures[i]->color);
             DrawWalls();
 #ifdef DEBUG_MODE
-            DrawFigure(current_figure, current_color);
+            DrawFigure(current_figure, current_figure->color);
             DrawCubeWires(cube, 1.f, 1.f, 1.f, LIME);
 #endif
         EndMode3D();

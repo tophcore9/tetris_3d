@@ -187,3 +187,47 @@ struct Figure* RandomFigure()
             return SpawnZ();
     }
 }
+
+int CheckRows()
+{
+    int y;
+        for (y = -9; y < 10; ++y)
+        {
+            int count_in_row = 0;
+            Vector3 *y_blocks[10];
+            for (int i = 0; i < figure_counter; ++i)
+            {
+                if ((int) figures[i]->block1.y == y)
+                {
+                    y_blocks[count_in_row] = &figures[i]->block1;
+                    ++count_in_row;
+                }
+                if ((int) figures[i]->block2.y == y)
+                {
+                    y_blocks[count_in_row] = &figures[i]->block2;
+                    ++count_in_row;
+                }
+                if ((int) figures[i]->block3.y == y)
+                {
+                    y_blocks[count_in_row] = &figures[i]->block3;
+                    ++count_in_row;
+                }
+                if ((int) figures[i]->block4.y == y)
+                {
+                    y_blocks[count_in_row] = &figures[i]->block4;
+                    ++count_in_row;
+                }
+            }
+            if (count_in_row == 10)
+            {
+                for (int i = 0; i < count_in_row; ++i)
+                {
+                    y_blocks[i]->y = 100;
+                    y_blocks[i]->x = 100;
+                    y_blocks[i]->z = 100;
+                }
+                return y;
+            }
+        }
+    return 100;
+}
