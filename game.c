@@ -1,7 +1,7 @@
 #include "game.h"
 
 Camera3D camera = {};
-Color current_color = {};
+//Color current_color = {};
 struct Figure *current_figure = {};
 float game_speed_active = 0.4f;
 float game_speed_default = 0.4f;
@@ -20,8 +20,9 @@ void startup()
 
     figures = (struct Figure*)malloc(sizeof(struct Figure*));
 
-    current_color = RandomColor();
+//    current_color = RandomColor();
     current_figure = RandomFigure();
+    current_figure->color = RandomColor();
 
 #ifdef DEBUG_MODE
     cube = (Vector3){-4.f, 10.f, -18.f};
@@ -53,7 +54,7 @@ void update()
             {
                 add_figure(current_figure);
                 current_figure = RandomFigure();
-                current_color = RandomColor();
+                current_figure->color = RandomColor();
             }
             OffsetFigureY(current_figure, -1.f);
             startTime = clock();
@@ -68,9 +69,9 @@ void render()
         DrawBackground();
 
         BeginMode3D(camera);
-            DrawFigure(current_figure, current_color);
+            DrawFigure(current_figure, current_figure->color);
             for (int i = 0; i < figure_counter; ++i)
-                DrawFigure(figures[i], BROWN);
+                DrawFigure(figures[i], figures[i]->color);
             DrawWalls();
 #ifdef DEBUG_MODE
             DrawFigure(current_figure, current_color);

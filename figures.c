@@ -79,13 +79,22 @@ bool CheckCollisionFigureY(struct Figure *figure, float y)
         return false;
 }
 
-struct Figure* SpawnL()
+struct Figure* SpawnRL()
 {
     struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
     figure->block1 = (Vector3){-4.f, 10.f, -18.f};
     figure->block2 = (Vector3){-4.f, 9.f, -18.f};
     figure->block3 = (Vector3){-4.f, 8.f, -18.f};
     figure->block4 = (Vector3){-3.f, 8.f, -18.f};
+    return figure;
+}
+struct Figure* SpawnLL()
+{
+    struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
+    figure->block1 = (Vector3){-3.f, 10.f, -18.f};
+    figure->block2 = (Vector3){-3.f, 9.f, -18.f};
+    figure->block3 = (Vector3){-3.f, 8.f, -18.f};
+    figure->block4 = (Vector3){-4.f, 8.f, -18.f};
     return figure;
 }
 struct Figure* SpawnI()
@@ -173,17 +182,19 @@ Color RandomColor()
 }
 struct Figure* RandomFigure()
 {
-    int figure_index = rand() % 6;
+    int figure_index = rand() % 7;
     switch (figure_index)
     {
         case 0:
             return SpawnI();
         case 1:
-            return SpawnL();
+            return SpawnRL();
         case 2:
-            return SpawnSquare();
+            return SpawnLL();
         case 3:
             return SpawnT();
+        case 4:
+            return SpawnSquare();
         default:
             return SpawnZ();
     }

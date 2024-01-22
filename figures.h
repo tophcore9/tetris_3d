@@ -11,6 +11,7 @@ struct Figure
     Vector3 block2;
     Vector3 block3;
     Vector3 block4;
+    Color color;
 };
 
 extern struct Figure** figures;
@@ -24,7 +25,8 @@ bool CheckCollisionAllFigures(struct Figure figure, float offsetX, float offsetY
 bool CheckCollisionFigureX(struct Figure *figure, float x);
 bool CheckCollisionFigureY(struct Figure *figure, float y);
 void DrawFigure(struct Figure* figure, Color color);
-struct Figure* SpawnL();
+struct Figure* SpawnRL();
+struct Figure* SpawnLL();
 struct Figure* SpawnI();
 struct Figure* SpawnSquare();
 struct Figure* SpawnZ();

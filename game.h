@@ -7,7 +7,7 @@
 //#define DEBUG_MODE
 
 extern Camera3D camera;
-extern Color current_color;
+//extern Color current_color;
 extern struct Figure* current_figure;
 extern float game_speed_active;
 extern float game_speed_default;
