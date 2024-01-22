@@ -5,12 +5,13 @@
 #include "env.h"
 #include "figures.h"
 
-#define DEBUG_MODE
+//#define DEBUG_MODE
 
 extern Camera3D camera;
 extern struct Figure* current_figure;
 extern float game_speed_active;
 extern float game_speed_default;
+extern bool is_game_over;
 
 extern int score;
 extern char score_str[20];

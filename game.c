@@ -4,6 +4,7 @@ Camera3D camera = {};
 struct Figure *current_figure = {};
 float game_speed_active = 0.4f;
 float game_speed_default = 0.4f;
+bool is_game_over = false;
 
 int score = 0;
 char score_str[20];
@@ -51,40 +52,60 @@ void update()
     /* Main cycle */
     while (!WindowShouldClose())
     {
-        elapsedTime = (float)(clock() - startTime) / CLOCKS_PER_SEC;
-        if (elapsedTime >= game_speed_active) /* Every 400 ms */
+        if (!is_game_over)
         {
-            if (CheckCollisionFigureY(current_figure, -9.f) || CheckCollisionAllFigures(*current_figure, 0, -1.f))
+            elapsedTime = (float) (clock() - startTime) / CLOCKS_PER_SEC;
+            if (elapsedTime >= game_speed_active) /* Every 400 ms */
             {
-                /* Adding new figure into 'figures' array */
-                add_figure(current_figure);
-                current_figure = RandomFigure();
-                current_figure->color = RandomColor();
+                if (CheckCollisionFigureY(current_figure, -9.f) || CheckCollisionAllFigures(*current_figure, 0, -1.f))
+                {
+                    /* Adding new figure into 'figures' array */
+                    add_figure(current_figure);
+                    current_figure = RandomFigure();
+                    current_figure->color = RandomColor();
 
-                /* Checking complete lines and shifting them down if they are found */
+                    /* Checking complete lines and shifting them down if they are found */
+                    for (int i = 0; i < figure_counter; ++i)
+                        if (CompleteLineHandler())
+                        {
+                            score += 50;
+                            ++complete_lines;
+                        }
+                }
+
                 for (int i = 0; i < figure_counter; ++i)
-                    if (CompleteLineHandler())
+                {
+                    if (CheckCollisionFigureY(figures[i], 9.f))
                     {
-                        score += 50;
-                        ++complete_lines;
+                        is_game_over = true;
                     }
+                }
+
+                OffsetFigureY(current_figure, -1.f);
+                startTime = clock();
             }
-            OffsetFigureY(current_figure, -1.f);
-            startTime = clock();
+            render();
+            event_handler();
         }
-        render();
-        event_handler();
+        else
+        {
+            BeginDrawing();
+            DrawBackground();
+            DrawText("Game Over", 0, 0, 50, RED);
+            EndDrawing();
+        }
     }
 }
 void render()
 {
     BeginDrawing();
         DrawBackground();
-
         BeginMode3D(camera);
             DrawFigure(current_figure, current_figure->color);
+
             for (int i = 0; i < figure_counter; ++i)
                 DrawFigure(figures[i], figures[i]->color);
+
             DrawWalls();
 #ifdef DEBUG_MODE
             DrawFigure(current_figure, current_figure->color);
@@ -93,18 +114,18 @@ void render()
         EndMode3D();
 
         snprintf(score_str, 20, "Score: %d", score);
-        DrawText(score_str, SCREEN_WIDTH -  10 * strlen(score_str) - 20, 10, 20, WHITE);
+        DrawText(score_str, SCREEN_WIDTH - 10 * strlen(score_str) - 20, 10, 20, WHITE);
 
         snprintf(complete_lines_str, 20, "Lines: %d", complete_lines);
-        DrawText(complete_lines_str, SCREEN_WIDTH -  10 * strlen(complete_lines_str) - 10, 30, 20, WHITE);
+        DrawText(complete_lines_str, SCREEN_WIDTH - 10 * strlen(complete_lines_str) - 10, 30, 20, WHITE);
 
 #ifdef DEBUG_MODE
-        snprintf(x_pos, 12, "X: %f", cube.x);
-        snprintf(y_pos, 12, "Y: %f", cube.y);
-        snprintf(z_pos, 12, "Z: %f", cube.z);
-        DrawText(x_pos, 0, 0, 20, WHITE);
-        DrawText(y_pos, 0, 20, 20, WHITE);
-        DrawText(z_pos, 0, 40, 20, WHITE);
+            snprintf(x_pos, 12, "X: %f", cube.x);
+            snprintf(y_pos, 12, "Y: %f", cube.y);
+            snprintf(z_pos, 12, "Z: %f", cube.z);
+            DrawText(x_pos, 0, 0, 20, WHITE);
+            DrawText(y_pos, 0, 20, 20, WHITE);
+            DrawText(z_pos, 0, 40, 20, WHITE);
 #endif
     EndDrawing();
 }

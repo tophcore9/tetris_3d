@@ -132,20 +132,6 @@ void DrawFigure(struct Figure* figure, Color color)
     DrawCube(figure->block4, 1.f, 1.f, 1.f, color);
     DrawCubeWires(figure->block4, 1.f, 1.f, 1.f, BLACK);
 }
-struct Figure* OffsetFigureBlocksY(struct Figure* figure, float offsetY, float floorY)
-{
-    if (figure->block1.y > floorY)
-        figure->block1.y += offsetY;
-
-    if (figure->block2.y > floorY)
-        figure->block2.y += offsetY;
-
-    if (figure->block3.y > floorY)
-        figure->block3.y += offsetY;
-
-    if (figure->block4.y > floorY)
-        figure->block4.y += offsetY;
-}
 struct Figure* OffsetFigureX(struct Figure* figure, float offsetX)
 {
     /* X offset */
