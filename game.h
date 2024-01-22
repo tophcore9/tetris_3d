@@ -5,7 +5,7 @@
 #include "env.h"
 #include "figures.h"
 
-//#define DEBUG_MODE
+#define DEBUG_MODE
 
 extern Camera3D camera;
 extern struct Figure* current_figure;

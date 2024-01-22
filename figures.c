@@ -70,55 +70,55 @@ bool CheckCollisionFigureY(struct Figure *figure, float y)
 struct Figure* SpawnRL()
 {
     struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
-    figure->block1 = (Vector3){-4.f, 10.f, -18.f};
-    figure->block2 = (Vector3){-4.f, 9.f, -18.f};
-    figure->block3 = (Vector3){-4.f, 8.f, -18.f};
-    figure->block4 = (Vector3){-3.f, 8.f, -18.f};
+    figure->block1 = (Vector3){0.f, 10.f, -18.f};
+    figure->block2 = (Vector3){0.f, 9.f, -18.f};
+    figure->block3 = (Vector3){0.f, 8.f, -18.f};
+    figure->block4 = (Vector3){1.f, 8.f, -18.f};
     return figure;
 }
 struct Figure* SpawnLL()
 {
     struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
-    figure->block1 = (Vector3){-3.f, 10.f, -18.f};
-    figure->block2 = (Vector3){-3.f, 9.f, -18.f};
-    figure->block3 = (Vector3){-3.f, 8.f, -18.f};
-    figure->block4 = (Vector3){-4.f, 8.f, -18.f};
+    figure->block1 = (Vector3){1.f, 10.f, -18.f};
+    figure->block2 = (Vector3){1.f, 9.f, -18.f};
+    figure->block3 = (Vector3){1.f, 8.f, -18.f};
+    figure->block4 = (Vector3){0.f, 8.f, -18.f};
     return figure;
 }
 struct Figure* SpawnI()
 {
     struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
-    figure->block1 = (Vector3){-4.f, 10.f, -18.f};
-    figure->block2 = (Vector3){-4.f, 9.f, -18.f};
-    figure->block3 = (Vector3){-4.f, 8.f, -18.f};
-    figure->block4 = (Vector3){-4.f, 7.f, -18.f};
+    figure->block1 = (Vector3){0.f, 10.f, -18.f};
+    figure->block2 = (Vector3){0.f, 9.f, -18.f};
+    figure->block3 = (Vector3){0.f, 8.f, -18.f};
+    figure->block4 = (Vector3){0.f, 7.f, -18.f};
     return figure;
 }
 struct Figure* SpawnSquare()
 {
     struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
-    figure->block1 = (Vector3){-4.f, 10.f, -18.f};
-    figure->block2 = (Vector3){-3.f, 10.f, -18.f};
-    figure->block3 = (Vector3){-4.f, 9.f, -18.f};
-    figure->block4 = (Vector3){-3.f, 9.f, -18.f};
+    figure->block1 = (Vector3){0.f, 10.f, -18.f};
+    figure->block2 = (Vector3){1.f, 10.f, -18.f};
+    figure->block3 = (Vector3){0.f, 9.f, -18.f};
+    figure->block4 = (Vector3){1.f, 9.f, -18.f};
     return figure;
 }
 struct Figure* SpawnZ()
 {
     struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
-    figure->block1 = (Vector3){-4.f, 10.f, -18.f};
-    figure->block2 = (Vector3){-4.f, 9.f, -18.f};
-    figure->block3 = (Vector3){-3.f, 9.f, -18.f};
-    figure->block4 = (Vector3){-3.f, 8.f, -18.f};
+    figure->block1 = (Vector3){0.f, 10.f, -18.f};
+    figure->block2 = (Vector3){0.f, 9.f, -18.f};
+    figure->block3 = (Vector3){1.f, 9.f, -18.f};
+    figure->block4 = (Vector3){1.f, 8.f, -18.f};
     return figure;
 }
 struct Figure* SpawnT()
 {
     struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
-    figure->block1 = (Vector3){-4.f, 10.f, -18.f};
-    figure->block2 = (Vector3){-4.f, 9.f, -18.f};
-    figure->block3 = (Vector3){-4.f, 8.f, -18.f};
-    figure->block4 = (Vector3){-3.f, 9.f, -18.f};
+    figure->block1 = (Vector3){0.f, 10.f, -18.f};
+    figure->block2 = (Vector3){0.f, 9.f, -18.f};
+    figure->block3 = (Vector3){0.f, 8.f, -18.f};
+    figure->block4 = (Vector3){1.f, 9.f, -18.f};
     return figure;
 }
 void DrawFigure(struct Figure* figure, Color color)
