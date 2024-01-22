@@ -1,5 +1,13 @@
 #include "figures.h"
 
+struct Figure** figures = NULL;
+int figure_counter = 0;
+void add_figure(struct Figure* figure)
+{
+    figures = (struct Figure**)realloc(figures, ++figure_counter * sizeof(struct Figure**));
+    figures[figure_counter - 1] = figure;
+}
+
 bool CheckCollisionCubes(Vector3 cube1, Vector3 cube2)
 {
     if (cube1.x == cube2.x &&
@@ -18,6 +26,37 @@ bool CheckCollisionFigureCube(struct Figure *figure, Vector3 cube)
         return true;
     else
         return false;
+}
+bool CheckCollisionFigures(struct Figure *figure1, struct Figure *figure2)
+{
+    if (CheckCollisionCubes(figure1->block1, figure2->block1) ||
+        CheckCollisionCubes(figure1->block1, figure2->block2) ||
+        CheckCollisionCubes(figure1->block1, figure2->block3) ||
+        CheckCollisionCubes(figure1->block1, figure2->block4) ||
+        CheckCollisionCubes(figure1->block2, figure2->block1) ||
+        CheckCollisionCubes(figure1->block2, figure2->block2) ||
+        CheckCollisionCubes(figure1->block2, figure2->block3) ||
+        CheckCollisionCubes(figure1->block2, figure2->block4) ||
+        CheckCollisionCubes(figure1->block3, figure2->block1) ||
+        CheckCollisionCubes(figure1->block3, figure2->block2) ||
+        CheckCollisionCubes(figure1->block3, figure2->block3) ||
+        CheckCollisionCubes(figure1->block3, figure2->block4) ||
+        CheckCollisionCubes(figure1->block4, figure2->block1) ||
+        CheckCollisionCubes(figure1->block4, figure2->block2) ||
+        CheckCollisionCubes(figure1->block4, figure2->block3) ||
+        CheckCollisionCubes(figure1->block4, figure2->block4))
+        return true;
+    else
+        return false;
+}
+bool CheckCollisionAllFigures(struct Figure *figure)
+{
+    for (int i = 0; i < figure_counter; ++i)
+    {
+        if (CheckCollisionFigures(figure, figures[i]))
+            return true;
+    }
+    return false;
 }
 bool CheckCollisionFigureX(struct Figure *figure, float x)
 {

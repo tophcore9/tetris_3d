@@ -13,8 +13,14 @@ struct Figure
     Vector3 block4;
 };
 
+extern struct Figure** figures;
+extern int figure_counter;
+
+void add_figure(struct Figure* figure);
 bool CheckCollisionCubes(Vector3 cube1, Vector3 cube2);
 bool CheckCollisionFigureCube(struct Figure *figure, Vector3 cube);
+bool CheckCollisionFigures(struct Figure *figure1, struct Figure *figure2);
+bool CheckCollisionAllFigures(struct Figure *figure);
 bool CheckCollisionFigureX(struct Figure *figure, float x);
 bool CheckCollisionFigureY(struct Figure *figure, float y);
 void DrawFigure(struct Figure* figure, Color color);

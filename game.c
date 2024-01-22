@@ -18,6 +18,8 @@ void startup()
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Tetris");
     srand(time(NULL));
 
+    figures = (struct Figure*)malloc(sizeof(struct Figure*));
+
     current_color = RandomColor();
     current_figure = RandomFigure();
 
@@ -48,8 +50,10 @@ void update()
         if (elapsedTime >= game_speed_active) /* Every 400 ms */
         {
             OffsetFigureY(current_figure, -1.f);
-            if (CheckCollisionFigureY(current_figure, -10.f))
+            if (CheckCollisionFigureY(current_figure, -10.f) || CheckCollisionAllFigures(current_figure))
             {
+                OffsetFigureY(current_figure, 1.f);
+                add_figure(current_figure);
                 current_figure = RandomFigure();
                 current_color = RandomColor();
             }
@@ -66,6 +70,8 @@ void render()
 
         BeginMode3D(camera);
             DrawFigure(current_figure, current_color);
+            for (int i = 0; i < figure_counter; ++i)
+                DrawFigure(figures[i], BROWN);
             DrawWalls();
 #ifdef DEBUG_MODE
             DrawFigure(current_figure, current_color);
@@ -103,10 +109,18 @@ void event_handler()
 
     if (IsKeyPressed(KEY_LEFT))
         if (!CheckCollisionFigureX(current_figure, -4.f))
+        {
             OffsetFigureX(current_figure, -1.f);
+            if (CheckCollisionAllFigures(current_figure))
+                OffsetFigureX(current_figure, 1.f);
+        }
     if (IsKeyPressed(KEY_RIGHT))
         if (!CheckCollisionFigureX(current_figure, 5.f))
+        {
             OffsetFigureX(current_figure, 1.f);
+            if (CheckCollisionAllFigures(current_figure))
+                OffsetFigureX(current_figure, -1.f);
+        }
 }
 void unloading()
 { CloseWindow(); }
