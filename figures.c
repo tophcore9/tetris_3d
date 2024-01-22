@@ -29,22 +29,10 @@ bool CheckCollisionFigureCube(struct Figure *figure, Vector3 cube)
 }
 bool CheckCollisionFigures(struct Figure *figure1, struct Figure *figure2)
 {
-    if (CheckCollisionCubes(figure1->block1, figure2->block1) ||
-        CheckCollisionCubes(figure1->block1, figure2->block2) ||
-        CheckCollisionCubes(figure1->block1, figure2->block3) ||
-        CheckCollisionCubes(figure1->block1, figure2->block4) ||
-        CheckCollisionCubes(figure1->block2, figure2->block1) ||
-        CheckCollisionCubes(figure1->block2, figure2->block2) ||
-        CheckCollisionCubes(figure1->block2, figure2->block3) ||
-        CheckCollisionCubes(figure1->block2, figure2->block4) ||
-        CheckCollisionCubes(figure1->block3, figure2->block1) ||
-        CheckCollisionCubes(figure1->block3, figure2->block2) ||
-        CheckCollisionCubes(figure1->block3, figure2->block3) ||
-        CheckCollisionCubes(figure1->block3, figure2->block4) ||
-        CheckCollisionCubes(figure1->block4, figure2->block1) ||
-        CheckCollisionCubes(figure1->block4, figure2->block2) ||
-        CheckCollisionCubes(figure1->block4, figure2->block3) ||
-        CheckCollisionCubes(figure1->block4, figure2->block4))
+    if (CheckCollisionFigureCube(figure1, figure2->block1) ||
+        CheckCollisionFigureCube(figure1, figure2->block2) ||
+        CheckCollisionFigureCube(figure1, figure2->block3) ||
+        CheckCollisionFigureCube(figure1, figure2->block4))
         return true;
     else
         return false;
