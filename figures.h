@@ -24,7 +24,7 @@ bool CheckCollisionFigures(struct Figure *figure1, struct Figure *figure2);
 bool CheckCollisionAllFigures(struct Figure figure, float offsetX, float offsetY);
 bool CheckCollisionFigureX(struct Figure *figure, float x);
 bool CheckCollisionFigureY(struct Figure *figure, float y);
-int CheckRows();
+bool CompleteLineHandler();
 void DrawFigure(struct Figure* figure, Color color);
 struct Figure* SpawnRL();
 struct Figure* SpawnLL();

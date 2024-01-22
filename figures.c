@@ -132,6 +132,20 @@ void DrawFigure(struct Figure* figure, Color color)
     DrawCube(figure->block4, 1.f, 1.f, 1.f, color);
     DrawCubeWires(figure->block4, 1.f, 1.f, 1.f, BLACK);
 }
+struct Figure* OffsetFigureBlocksY(struct Figure* figure, float offsetY, float floorY)
+{
+    if (figure->block1.y > floorY)
+        figure->block1.y += offsetY;
+
+    if (figure->block2.y > floorY)
+        figure->block2.y += offsetY;
+
+    if (figure->block3.y > floorY)
+        figure->block3.y += offsetY;
+
+    if (figure->block4.y > floorY)
+        figure->block4.y += offsetY;
+}
 struct Figure* OffsetFigureX(struct Figure* figure, float offsetX)
 {
     /* X offset */
@@ -188,46 +202,51 @@ struct Figure* RandomFigure()
     }
 }
 
-int CheckRows()
+bool CompleteLineHandler()
 {
     int y;
         for (y = -9; y < 10; ++y)
         {
             int count_in_row = 0;
-            Vector3 *y_blocks[10];
+            int other_blocks_count = 0;
+            Vector3 *y_blocks[10] = {};
+            Vector3 *other_blocks[200] = {};
+
             for (int i = 0; i < figure_counter; ++i)
             {
                 if ((int) figures[i]->block1.y == y)
-                {
-                    y_blocks[count_in_row] = &figures[i]->block1;
-                    ++count_in_row;
-                }
+                    y_blocks[count_in_row++] = &figures[i]->block1;
+                else if ((int)figures[i]->block1.y > y)
+                    other_blocks[other_blocks_count++] = &figures[i]->block1;
+
                 if ((int) figures[i]->block2.y == y)
-                {
-                    y_blocks[count_in_row] = &figures[i]->block2;
-                    ++count_in_row;
-                }
+                    y_blocks[count_in_row++] = &figures[i]->block2;
+                else if ((int)figures[i]->block2.y > y)
+                    other_blocks[other_blocks_count++] = &figures[i]->block2;
+
                 if ((int) figures[i]->block3.y == y)
-                {
-                    y_blocks[count_in_row] = &figures[i]->block3;
-                    ++count_in_row;
-                }
+                    y_blocks[count_in_row++] = &figures[i]->block3;
+                else if ((int)figures[i]->block3.y > y)
+                    other_blocks[other_blocks_count++] = &figures[i]->block3;
+
                 if ((int) figures[i]->block4.y == y)
-                {
-                    y_blocks[count_in_row] = &figures[i]->block4;
-                    ++count_in_row;
-                }
+                    y_blocks[count_in_row++] = &figures[i]->block4;
+                else if ((int)figures[i]->block4.y > y)
+                    other_blocks[other_blocks_count++] = &figures[i]->block4;
             }
             if (count_in_row == 10)
             {
                 for (int i = 0; i < count_in_row; ++i)
                 {
+                    /* Hiding blocks from the camera view */
                     y_blocks[i]->y = 100;
                     y_blocks[i]->x = 100;
                     y_blocks[i]->z = 100;
                 }
-                return y;
+                for (int i = 0; i < other_blocks_count; ++i)
+                    --other_blocks[i]->y;
+                return true;
             }
         }
-    return 100;
+    return false;
 }

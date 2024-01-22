@@ -1,10 +1,15 @@
 #include "game.h"
 
 Camera3D camera = {};
-//Color current_color = {};
 struct Figure *current_figure = {};
 float game_speed_active = 0.4f;
 float game_speed_default = 0.4f;
+
+int score = 0;
+char score_str[20];
+
+int complete_lines = 0;
+char complete_lines_str[20];
 
 void run()
 {
@@ -18,9 +23,8 @@ void startup()
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Tetris");
     srand(time(NULL));
 
-    figures = (struct Figure*)malloc(sizeof(struct Figure*));
+    figures = (struct Figure**)malloc(sizeof(struct Figure**));
 
-//    current_color = RandomColor();
     current_figure = RandomFigure();
     current_figure->color = RandomColor();
 
@@ -28,8 +32,8 @@ void startup()
     cube = (Vector3){-4.f, 10.f, -18.f};
 #endif
 
-    camera.target = (Vector3){0.5f, 1.0f, 0.0f};
-    camera.position = (Vector3){0.5f, 1.25f, 10.0f};
+    camera.target = (Vector3){2.75f, 1.0f, 0.0f};
+    camera.position = (Vector3){2.75f, 1.25f, 10.0f};
     camera.fovy = 45.0f;
     camera.projection = CAMERA_PERSPECTIVE;
     camera.up = (Vector3){0.0f, 1.0f, 0.0f};
@@ -57,13 +61,13 @@ void update()
                 current_figure = RandomFigure();
                 current_figure->color = RandomColor();
 
-                /* Checking solid rows and shifting if they are found */
-                CheckRows();
-//                for (int i = 0; i < figure_counter; ++i)
-//                {
-//                    for (int y = CheckRows(); y < 10; ++y)
-//                        OffsetFigureY(figures[i], -1.f);
-//                }
+                /* Checking complete lines and shifting them down if they are found */
+                for (int i = 0; i < figure_counter; ++i)
+                    if (CompleteLineHandler())
+                    {
+                        score += 50;
+                        ++complete_lines;
+                    }
             }
             OffsetFigureY(current_figure, -1.f);
             startTime = clock();
@@ -87,6 +91,12 @@ void render()
             DrawCubeWires(cube, 1.f, 1.f, 1.f, LIME);
 #endif
         EndMode3D();
+
+        snprintf(score_str, 20, "Score: %d", score);
+        DrawText(score_str, SCREEN_WIDTH -  10 * strlen(score_str) - 20, 10, 20, WHITE);
+
+        snprintf(complete_lines_str, 20, "Lines: %d", complete_lines);
+        DrawText(complete_lines_str, SCREEN_WIDTH -  10 * strlen(complete_lines_str) - 10, 30, 20, WHITE);
 
 #ifdef DEBUG_MODE
         snprintf(x_pos, 12, "X: %f", cube.x);
