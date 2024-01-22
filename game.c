@@ -60,7 +60,7 @@ void update()
                 if (CheckCollisionFigureY(current_figure, -9.f) || CheckCollisionAllFigures(*current_figure, 0, -1.f))
                 {
                     /* Adding new figure into 'figures' array */
-                    add_figure(current_figure);
+                    AddFigure(current_figure);
                     current_figure = RandomFigure();
                     current_figure->color = RandomColor();
 
@@ -76,13 +76,13 @@ void update()
                 for (int i = 0; i < figure_counter; ++i)
                 {
                     if (CheckCollisionFigureY(figures[i], 9.f))
-                    {
                         is_game_over = true;
-                    }
                 }
 
+//#ifndef DEBUG_MODE
                 OffsetFigureY(current_figure, -1.f);
                 startTime = clock();
+//#endif
             }
             render();
             event_handler();
@@ -140,7 +140,10 @@ void event_handler()
         cube.x -= 1.f;
     else if (IsKeyPressed(KEY_RIGHT))
         cube.x += 1.f;
-#endif
+#elifndef DEBUG_MODE
+    if (IsKeyPressed(KEY_UP))
+        RotateFigure(&current_figure);
+
     if (IsKeyDown(KEY_DOWN))
         game_speed_active = game_speed_default / 5;
     else
@@ -152,6 +155,7 @@ void event_handler()
     if (IsKeyPressed(KEY_RIGHT))
         if (!CheckCollisionFigureX(current_figure, 5.f) && !CheckCollisionAllFigures(*current_figure, 1.f, 0))
             OffsetFigureX(current_figure, 1.f);
+#endif
 }
 void unloading()
 { CloseWindow(); }
