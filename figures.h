@@ -20,7 +20,7 @@ void add_figure(struct Figure* figure);
 bool CheckCollisionCubes(Vector3 cube1, Vector3 cube2);
 bool CheckCollisionFigureCube(struct Figure *figure, Vector3 cube);
 bool CheckCollisionFigures(struct Figure *figure1, struct Figure *figure2);
-bool CheckCollisionAllFigures(struct Figure *figure);
+bool CheckCollisionAllFigures(struct Figure figure, float offsetX, float offsetY);
 bool CheckCollisionFigureX(struct Figure *figure, float x);
 bool CheckCollisionFigureY(struct Figure *figure, float y);
 void DrawFigure(struct Figure* figure, Color color);

@@ -49,14 +49,13 @@ void update()
         elapsedTime = (float)(clock() - startTime) / CLOCKS_PER_SEC;
         if (elapsedTime >= game_speed_active) /* Every 400 ms */
         {
-            OffsetFigureY(current_figure, -1.f);
-            if (CheckCollisionFigureY(current_figure, -10.f) || CheckCollisionAllFigures(current_figure))
+            if (CheckCollisionFigureY(current_figure, -9.f) || CheckCollisionAllFigures(*current_figure, 0, -1.f))
             {
-                OffsetFigureY(current_figure, 1.f);
                 add_figure(current_figure);
                 current_figure = RandomFigure();
                 current_color = RandomColor();
             }
+            OffsetFigureY(current_figure, -1.f);
             startTime = clock();
         }
         render();
@@ -106,21 +105,12 @@ void event_handler()
     else
         game_speed_active = game_speed_default;
 
-
     if (IsKeyPressed(KEY_LEFT))
-        if (!CheckCollisionFigureX(current_figure, -4.f))
-        {
+        if (!CheckCollisionFigureX(current_figure, -4.f) && !CheckCollisionAllFigures(*current_figure, -1.f, 0))
             OffsetFigureX(current_figure, -1.f);
-            if (CheckCollisionAllFigures(current_figure))
-                OffsetFigureX(current_figure, 1.f);
-        }
     if (IsKeyPressed(KEY_RIGHT))
-        if (!CheckCollisionFigureX(current_figure, 5.f))
-        {
+        if (!CheckCollisionFigureX(current_figure, 5.f) && !CheckCollisionAllFigures(*current_figure, 1.f, 0))
             OffsetFigureX(current_figure, 1.f);
-            if (CheckCollisionAllFigures(current_figure))
-                OffsetFigureX(current_figure, -1.f);
-        }
 }
 void unloading()
 { CloseWindow(); }

@@ -49,13 +49,13 @@ bool CheckCollisionFigures(struct Figure *figure1, struct Figure *figure2)
     else
         return false;
 }
-bool CheckCollisionAllFigures(struct Figure *figure)
+bool CheckCollisionAllFigures(struct Figure figure, float offsetX, float offsetY)
 {
+    OffsetFigureX(&figure, offsetX);
+    OffsetFigureY(&figure, offsetY);
     for (int i = 0; i < figure_counter; ++i)
-    {
-        if (CheckCollisionFigures(figure, figures[i]))
+        if (CheckCollisionFigures(&figure, figures[i]))
             return true;
-    }
     return false;
 }
 bool CheckCollisionFigureX(struct Figure *figure, float x)
