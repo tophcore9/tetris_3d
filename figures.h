@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define HIDDEN 100
+
 enum FigureType
 {
     Square_Type,
@@ -70,7 +72,6 @@ struct Figure* SpawnT_2Pos();
 struct Figure* SpawnT_3Pos();
 struct Figure* SpawnT_4Pos();
 void AddFigure(struct Figure* figure);
-Vector3 GetFigureCenter(struct Figure* figure);
 void RotateFigure(struct Figure** figure);
 
 

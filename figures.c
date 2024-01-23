@@ -1,10 +1,11 @@
 #include "figures.h"
+#include <math.h>
 
 struct Figure** figures = NULL;
 int figure_counter = 0;
 void AddFigure(struct Figure* figure)
 {
-    figures = (struct Figure**)realloc(figures, ++figure_counter * sizeof(struct Figure**));
+    figures = (struct Figure**)realloc(figures, ++figure_counter * sizeof(struct Figure*));
     figures[figure_counter - 1] = figure;
 }
 
@@ -347,64 +348,55 @@ struct Figure* RandomFigure()
 
 bool CompleteLineHandler()
 {
-    int y;
-        for (y = -9; y < 10; ++y)
-        {
-            int count_in_row = 0;
-            int other_blocks_count = 0;
-            Vector3 *y_blocks[10] = {};
-            Vector3 *other_blocks[200] = {};
+    Vector3 **other_blocks = (Vector3**)malloc(figure_counter * 4 * sizeof(Vector3*));
+    for (int y = -9; y < 10; ++y)
+    {
+        Vector3 *y_blocks[10] = {};
+        int count_in_row = 0;
+        int other_blocks_count = 0;
 
-            for (int i = 0; i < figure_counter; ++i)
+        for (int i = 0; i < figure_counter; ++i)
+        {
+            if (figures[i] != NULL)
             {
                 if ((int) figures[i]->block1.y == y)
                     y_blocks[count_in_row++] = &figures[i]->block1;
-                else if ((int)figures[i]->block1.y > y)
+                else if ((int) figures[i]->block1.y > y)
                     other_blocks[other_blocks_count++] = &figures[i]->block1;
 
                 if ((int) figures[i]->block2.y == y)
                     y_blocks[count_in_row++] = &figures[i]->block2;
-                else if ((int)figures[i]->block2.y > y)
+                else if ((int) figures[i]->block2.y > y)
                     other_blocks[other_blocks_count++] = &figures[i]->block2;
 
                 if ((int) figures[i]->block3.y == y)
                     y_blocks[count_in_row++] = &figures[i]->block3;
-                else if ((int)figures[i]->block3.y > y)
+                else if ((int) figures[i]->block3.y > y)
                     other_blocks[other_blocks_count++] = &figures[i]->block3;
 
                 if ((int) figures[i]->block4.y == y)
                     y_blocks[count_in_row++] = &figures[i]->block4;
-                else if ((int)figures[i]->block4.y > y)
+                else if ((int) figures[i]->block4.y > y)
                     other_blocks[other_blocks_count++] = &figures[i]->block4;
             }
-            if (count_in_row == 10)
-            {
-                for (int i = 0; i < count_in_row; ++i)
-                {
-                    /* Hiding blocks from the camera view */
-                    y_blocks[i]->y = 100;
-                    y_blocks[i]->x = 100;
-                    y_blocks[i]->z = 100;
-                }
-                for (int i = 0; i < other_blocks_count; ++i)
-                    --other_blocks[i]->y;
-                return true;
-            }
         }
+        if (count_in_row == 10)
+        {
+            for (int i = 0; i < count_in_row; ++i)
+            {
+                /* Hiding blocks from the camera view */
+                y_blocks[i]->x = HIDDEN;
+                y_blocks[i]->y = HIDDEN;
+                y_blocks[i]->z = HIDDEN;
+            }
+            for (int i = 0; i < other_blocks_count; ++i)
+                --other_blocks[i]->y;
+            free(other_blocks);
+            return true;
+        }
+    }
+    free(other_blocks);
     return false;
-}
-Vector3 GetFigureCenter(struct Figure* figure)
-{
-//    switch (figure->figure_type)
-//    {
-//        case RL_Type:
-//        case LL_Type:
-//        case T_Type:
-//        case I_Type:
-//            return figure->block2;
-//        case Z_Type:
-//            return figure->block2;
-//    }
 }
 void RotateFigure(struct Figure** figure)
 {
@@ -412,7 +404,7 @@ void RotateFigure(struct Figure** figure)
     if ((*figure)->figure_type != Square_Type)
     {
         Color color = (*figure)->color;
-        float y_offset = (*figure)->block1.y;
+        struct Figure *prev_pos = *figure;
         switch ((*figure)->figure_type)
         {
             case RL_Type1:
@@ -464,15 +456,17 @@ void RotateFigure(struct Figure** figure)
                 *figure = SpawnRZ_1Pos();
                 break;
             case LZ_Type1:
-                *figure = SpawnRZ_2Pos();
+                *figure = SpawnLZ_2Pos();
                 break;
             case LZ_Type2:
-                *figure = SpawnRZ_1Pos();
+                *figure = SpawnLZ_1Pos();
                 break;
         }
 
         (*figure)->color = color;
-        for (int i = 10; i > y_offset; --i)
-            OffsetFigureY(*figure, -1.f);
+        if (!CheckCollisionAllFigures(**figure, 0.f, -abs((*figure)->block1.y - prev_pos->block1.y)))
+            OffsetFigureY(*figure, -abs((*figure)->block1.y - prev_pos->block1.y));
+        else
+            *figure = prev_pos;
     }
 }

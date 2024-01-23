@@ -24,9 +24,10 @@ void startup()
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Tetris");
     srand(time(NULL));
 
-    figures = (struct Figure**)malloc(sizeof(struct Figure**));
+    figures = (struct Figure**)malloc(sizeof(struct Figure*));
 
-    current_figure = RandomFigure();
+    current_figure = SpawnI_1Pos();
+//    current_figure = RandomFigure();
     current_figure->color = RandomColor();
 
 #ifdef DEBUG_MODE
@@ -61,7 +62,8 @@ void update()
                 {
                     /* Adding new figure into 'figures' array */
                     AddFigure(current_figure);
-                    current_figure = RandomFigure();
+                    current_figure = SpawnI_1Pos();
+//                    current_figure = RandomFigure();
                     current_figure->color = RandomColor();
 
                     /* Checking complete lines and shifting them down if they are found */
@@ -89,6 +91,10 @@ void update()
         }
         else
         {
+            for (int i = 0; i < figure_counter; ++i)
+                free(figures[i]);
+            figure_counter = 0;
+
             BeginDrawing();
             DrawBackground();
             DrawText("Game Over", 0, 0, 50, RED);
