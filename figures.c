@@ -1,11 +1,11 @@
 #include "figures.h"
 #include <math.h>
 
-struct Figure** figures = NULL;
+Figure** figures = NULL;
 int figure_counter = 0;
-void AddFigure(struct Figure* figure)
+void AddFigure(Figure* figure)
 {
-    figures = (struct Figure**)realloc(figures, ++figure_counter * sizeof(struct Figure*));
+    figures = (Figure**)realloc(figures, ++figure_counter * sizeof(Figure*));
     figures[figure_counter - 1] = figure;
 }
 
@@ -18,7 +18,7 @@ bool CheckCollisionCubes(Vector3 cube1, Vector3 cube2)
     else
         return false;
 }
-bool CheckCollisionFigureCube(struct Figure *figure, Vector3 cube)
+bool CheckCollisionFigureCube(Figure *figure, Vector3 cube)
 {
     if (CheckCollisionCubes(figure->block1, cube) ||
         CheckCollisionCubes(figure->block2, cube) ||
@@ -28,7 +28,7 @@ bool CheckCollisionFigureCube(struct Figure *figure, Vector3 cube)
     else
         return false;
 }
-bool CheckCollisionFigures(struct Figure *figure1, struct Figure *figure2)
+bool CheckCollisionFigures(Figure *figure1, Figure *figure2)
 {
     if (CheckCollisionFigureCube(figure1, figure2->block1) ||
         CheckCollisionFigureCube(figure1, figure2->block2) ||
@@ -38,7 +38,7 @@ bool CheckCollisionFigures(struct Figure *figure1, struct Figure *figure2)
     else
         return false;
 }
-bool CheckCollisionAllFigures(struct Figure figure, float offsetX, float offsetY)
+bool CheckCollisionAllFigures(Figure figure, float offsetX, float offsetY)
 {
     OffsetFigureX(&figure, offsetX);
     OffsetFigureY(&figure, offsetY);
@@ -47,7 +47,7 @@ bool CheckCollisionAllFigures(struct Figure figure, float offsetX, float offsetY
             return true;
     return false;
 }
-bool CheckCollisionFigureX(struct Figure *figure, float x)
+bool CheckCollisionFigureX(Figure *figure, float x)
 {
     if (figure->block1.x == x ||
         figure->block2.x == x ||
@@ -57,7 +57,7 @@ bool CheckCollisionFigureX(struct Figure *figure, float x)
     else
         return false;
 }
-bool CheckCollisionFigureY(struct Figure *figure, float y)
+bool CheckCollisionFigureY(Figure *figure, float y)
 {
     if (figure->block1.y == y ||
         figure->block2.y == y ||
@@ -69,9 +69,9 @@ bool CheckCollisionFigureY(struct Figure *figure, float y)
 }
 
 /* Right-L Figure */
-struct Figure* SpawnRL_1Pos()
+Figure* SpawnRL_1Pos()
 {
-    struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
+    Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = RL_Type1;
     figure->block1 = (Vector3){0.f, 10.f, -18.f};
     figure->block2 = (Vector3){0.f, 9.f, -18.f};
@@ -79,9 +79,9 @@ struct Figure* SpawnRL_1Pos()
     figure->block4 = (Vector3){1.f, 8.f, -18.f};
     return figure;
 }
-struct Figure* SpawnRL_2Pos()
+Figure* SpawnRL_2Pos()
 {
-    struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
+    Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = RL_Type3;
     figure->block1 = (Vector3){1.f, 10.f, -18.f};
     figure->block2 = (Vector3){0.f, 9.f, -18.f};
@@ -89,9 +89,9 @@ struct Figure* SpawnRL_2Pos()
     figure->block4 = (Vector3){1.f, 9.f, -18.f};
     return figure;
 }
-struct Figure* SpawnRL_3Pos()
+Figure* SpawnRL_3Pos()
 {
-    struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
+    Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = RL_Type4;
     figure->block1 = (Vector3){1.f, 10.f, -18.f};
     figure->block2 = (Vector3){1.f, 9.f, -18.f};
@@ -99,9 +99,9 @@ struct Figure* SpawnRL_3Pos()
     figure->block4 = (Vector3){0.f, 10.f, -18.f};
     return figure;
 }
-struct Figure* SpawnRL_4Pos()
+Figure* SpawnRL_4Pos()
 {
-    struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
+    Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = RL_Type2;
     figure->block1 = (Vector3){1.f, 10.f, -18.f};
     figure->block2 = (Vector3){0.f, 10.f, -18.f};
@@ -112,9 +112,9 @@ struct Figure* SpawnRL_4Pos()
 
 
 /* Left-L Figure */
-struct Figure* SpawnLL_1Pos()
+Figure* SpawnLL_1Pos()
 {
-    struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
+    Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = LL_Type1;
     figure->block1 = (Vector3){1.f, 10.f, -18.f};
     figure->block2 = (Vector3){1.f, 9.f, -18.f};
@@ -122,9 +122,9 @@ struct Figure* SpawnLL_1Pos()
     figure->block4 = (Vector3){0.f, 8.f, -18.f};
     return figure;
 }
-struct Figure* SpawnLL_2Pos()
+Figure* SpawnLL_2Pos()
 {
-    struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
+    Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = LL_Type2;
     figure->block1 = (Vector3){2.f, 9.f, -18.f};
     figure->block2 = (Vector3){1.f, 9.f, -18.f};
@@ -132,9 +132,9 @@ struct Figure* SpawnLL_2Pos()
     figure->block4 = (Vector3){0.f, 10.f, -18.f};
     return figure;
 }
-struct Figure* SpawnLL_3Pos()
+Figure* SpawnLL_3Pos()
 {
-    struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
+    Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = LL_Type3;
     figure->block1 = (Vector3){0.f, 10.f, -18.f};
     figure->block2 = (Vector3){0.f, 9.f, -18.f};
@@ -142,9 +142,9 @@ struct Figure* SpawnLL_3Pos()
     figure->block4 = (Vector3){1.f, 10.f, -18.f};
     return figure;
 }
-struct Figure* SpawnLL_4Pos()
+Figure* SpawnLL_4Pos()
 {
-    struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
+    Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = LL_Type4;
     figure->block1 = (Vector3){2.f, 8.f, -18.f};
     figure->block2 = (Vector3){2.f, 9.f, -18.f};
@@ -155,9 +155,9 @@ struct Figure* SpawnLL_4Pos()
 
 
 /* I Figure */
-struct Figure* SpawnI_1Pos()
+Figure* SpawnI_1Pos()
 {
-    struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
+    Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = I_Type1;
     figure->block1 = (Vector3){0.f, 10.f, -18.f};
     figure->block2 = (Vector3){0.f, 9.f, -18.f};
@@ -165,9 +165,9 @@ struct Figure* SpawnI_1Pos()
     figure->block4 = (Vector3){0.f, 7.f, -18.f};
     return figure;
 }
-struct Figure* SpawnI_2Pos()
+Figure* SpawnI_2Pos()
 {
-    struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
+    Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = I_Type2;
     figure->block1 = (Vector3){-1.f, 10.f, -18.f};
     figure->block2 = (Vector3){0.f, 10.f, -18.f};
@@ -178,9 +178,9 @@ struct Figure* SpawnI_2Pos()
 
 
 /* Square Figure */
-struct Figure* SpawnSquare()
+Figure* SpawnSquare()
 {
-    struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
+    Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = Square_Type;
     figure->block1 = (Vector3){0.f, 10.f, -18.f};
     figure->block2 = (Vector3){1.f, 10.f, -18.f};
@@ -191,9 +191,9 @@ struct Figure* SpawnSquare()
 
 
 /* Right-Z Figure */
-struct Figure* SpawnRZ_1Pos()
+Figure* SpawnRZ_1Pos()
 {
-    struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
+    Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = RZ_Type1;
     figure->block1 = (Vector3){0.f, 10.f, -18.f};
     figure->block2 = (Vector3){0.f, 9.f, -18.f};
@@ -201,9 +201,9 @@ struct Figure* SpawnRZ_1Pos()
     figure->block4 = (Vector3){1.f, 8.f, -18.f};
     return figure;
 }
-struct Figure* SpawnRZ_2Pos()
+Figure* SpawnRZ_2Pos()
 {
-    struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
+    Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = RZ_Type2;
     figure->block1 = (Vector3){2.f, 10.f, -18.f};
     figure->block2 = (Vector3){1.f, 10.f, -18.f};
@@ -214,9 +214,9 @@ struct Figure* SpawnRZ_2Pos()
 
 
 /* Left-Z Figure */
-struct Figure* SpawnLZ_1Pos()
+Figure* SpawnLZ_1Pos()
 {
-    struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
+    Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = LZ_Type1;
     figure->block1 = (Vector3){1.f, 10.f, -18.f};
     figure->block2 = (Vector3){0.f, 9.f, -18.f};
@@ -224,9 +224,9 @@ struct Figure* SpawnLZ_1Pos()
     figure->block4 = (Vector3){0.f, 8.f, -18.f};
     return figure;
 }
-struct Figure* SpawnLZ_2Pos()
+Figure* SpawnLZ_2Pos()
 {
-    struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
+    Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = LZ_Type2;
     figure->block1 = (Vector3){-1.f, 10.f, -18.f};
     figure->block2 = (Vector3){0.f, 10.f, -18.f};
@@ -237,9 +237,9 @@ struct Figure* SpawnLZ_2Pos()
 
 
 /* T Figure */
-struct Figure* SpawnT_1Pos()
+Figure* SpawnT_1Pos()
 {
-    struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
+    Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = T_Type1;
     figure->block1 = (Vector3){0.f, 10.f, -18.f};
     figure->block2 = (Vector3){0.f, 9.f, -18.f};
@@ -247,9 +247,9 @@ struct Figure* SpawnT_1Pos()
     figure->block4 = (Vector3){1.f, 9.f, -18.f};
     return figure;
 }
-struct Figure* SpawnT_2Pos()
+Figure* SpawnT_2Pos()
 {
-    struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
+    Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = T_Type2;
     figure->block1 = (Vector3){-1.f, 10.f, -18.f};
     figure->block2 = (Vector3){0.f, 10.f, -18.f};
@@ -257,9 +257,9 @@ struct Figure* SpawnT_2Pos()
     figure->block4 = (Vector3){1.f, 10.f, -18.f};
     return figure;
 }
-struct Figure* SpawnT_3Pos()
+Figure* SpawnT_3Pos()
 {
-    struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
+    Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = T_Type3;
     figure->block1 = (Vector3){0.f, 10.f, -18.f};
     figure->block2 = (Vector3){0.f, 9.f, -18.f};
@@ -267,9 +267,9 @@ struct Figure* SpawnT_3Pos()
     figure->block4 = (Vector3){-1.f, 9.f, -18.f};
     return figure;
 }
-struct Figure* SpawnT_4Pos()
+Figure* SpawnT_4Pos()
 {
-    struct Figure *figure = (struct Figure*)malloc(sizeof(struct Figure));
+    Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = T_Type4;
     figure->block1 = (Vector3){-1.f, 9.f, -18.f};
     figure->block2 = (Vector3){0.f, 9.f, -18.f};
@@ -279,7 +279,7 @@ struct Figure* SpawnT_4Pos()
 }
 
 
-void DrawFigure(struct Figure* figure, Color color)
+void DrawFigure(Figure* figure, Color color)
 {
     DrawCube(figure->block1, 1.f, 1.f, 1.f, color);
     DrawCubeWires(figure->block1, 1.f, 1.f, 1.f, BLACK);
@@ -290,7 +290,7 @@ void DrawFigure(struct Figure* figure, Color color)
     DrawCube(figure->block4, 1.f, 1.f, 1.f, color);
     DrawCubeWires(figure->block4, 1.f, 1.f, 1.f, BLACK);
 }
-struct Figure* OffsetFigureX(struct Figure* figure, float offsetX)
+Figure* OffsetFigureX(Figure* figure, float offsetX)
 {
     /* X offset */
     figure->block1.x += offsetX;
@@ -298,7 +298,7 @@ struct Figure* OffsetFigureX(struct Figure* figure, float offsetX)
     figure->block3.x += offsetX;
     figure->block4.x += offsetX;
 }
-struct Figure* OffsetFigureY(struct Figure* figure, float offsetY)
+Figure* OffsetFigureY(Figure* figure, float offsetY)
 {
     /* Y offset */
     figure->block1.y += offsetY;
@@ -326,7 +326,7 @@ Color RandomColor()
             return PURPLE;
     }
 }
-struct Figure* RandomFigure()
+Figure* RandomFigure()
 {
     int figure_index = rand() % 7;
     switch (figure_index)
@@ -398,13 +398,13 @@ bool CompleteLineHandler()
     free(other_blocks);
     return false;
 }
-void RotateFigure(struct Figure** figure)
+void RotateFigure(Figure** figure)
 {
     /* Square can't be rotated */
     if ((*figure)->figure_type != Square_Type)
     {
         Color color = (*figure)->color;
-        struct Figure *prev_pos = *figure;
+        Figure *prev_pos = *figure;
         switch ((*figure)->figure_type)
         {
             case RL_Type1:

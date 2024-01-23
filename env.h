@@ -7,6 +7,7 @@
 #define SCREEN_WIDTH 600
 #define SCREEN_HEIGHT 800
 
+typedef struct Walls Walls;
 static struct Walls
 {
     Vector3 up;
@@ -20,6 +21,6 @@ static struct Walls
 void InitWalls();
 void DrawWalls();
 void DrawBackground();
-struct Walls* GetWalls();
+Walls* GetWalls();
 
 #endif //TETRIS_ENV_H

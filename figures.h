@@ -30,6 +30,7 @@ enum FigureType
     LZ_Type2
 };
 
+typedef struct Figure Figure;
 struct Figure
 {
     Vector3 block1;
@@ -51,34 +52,34 @@ bool CheckCollisionFigureX(struct Figure *figure, float x);
 bool CheckCollisionFigureY(struct Figure *figure, float y);
 bool CompleteLineHandler();
 
-void DrawFigure(struct Figure* figure, Color color);
-struct Figure* SpawnRL_1Pos();
-struct Figure* SpawnRL_2Pos();
-struct Figure* SpawnRL_3Pos();
-struct Figure* SpawnRL_4Pos();
-struct Figure* SpawnLL_1Pos();
-struct Figure* SpawnLL_2Pos();
-struct Figure* SpawnLL_3Pos();
-struct Figure* SpawnLL_4Pos();
-struct Figure* SpawnI_1Pos();
-struct Figure* SpawnI_2Pos();
-struct Figure* SpawnSquare();
-struct Figure* SpawnRZ_1Pos();
-struct Figure* SpawnRZ_2Pos();
-struct Figure* SpawnLZ_1Pos();
-struct Figure* SpawnLZ_2Pos();
-struct Figure* SpawnT_1Pos();
-struct Figure* SpawnT_2Pos();
-struct Figure* SpawnT_3Pos();
-struct Figure* SpawnT_4Pos();
-void AddFigure(struct Figure* figure);
-void RotateFigure(struct Figure** figure);
+void DrawFigure(Figure* figure, Color color);
+Figure* SpawnRL_1Pos();
+Figure* SpawnRL_2Pos();
+Figure* SpawnRL_3Pos();
+Figure* SpawnRL_4Pos();
+Figure* SpawnLL_1Pos();
+Figure* SpawnLL_2Pos();
+Figure* SpawnLL_3Pos();
+Figure* SpawnLL_4Pos();
+Figure* SpawnI_1Pos();
+Figure* SpawnI_2Pos();
+Figure* SpawnSquare();
+Figure* SpawnRZ_1Pos();
+Figure* SpawnRZ_2Pos();
+Figure* SpawnLZ_1Pos();
+Figure* SpawnLZ_2Pos();
+Figure* SpawnT_1Pos();
+Figure* SpawnT_2Pos();
+Figure* SpawnT_3Pos();
+Figure* SpawnT_4Pos();
+void AddFigure(Figure* figure);
+void RotateFigure(Figure** figure);
 
 
-struct Figure* OffsetFigureX(struct Figure* figure, float offsetX);
-struct Figure* OffsetFigureY(struct Figure* figure, float offsetY);
+Figure* OffsetFigureX(Figure* figure, float offsetX);
+Figure* OffsetFigureY(Figure* figure, float offsetY);
 
 Color RandomColor();
-struct Figure* RandomFigure();
+Figure* RandomFigure();
 
 #endif //TETRIS_FIGURES_H

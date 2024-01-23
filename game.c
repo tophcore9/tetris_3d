@@ -1,7 +1,7 @@
 #include "game.h"
 
 Camera3D camera = {};
-struct Figure *current_figure = {};
+Figure *current_figure = {};
 float game_speed_active = 0.4f;
 float game_speed_default = 0.4f;
 bool is_game_over = false;
@@ -24,10 +24,10 @@ void startup()
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Tetris");
     srand(time(NULL));
 
-    figures = (struct Figure**)malloc(sizeof(struct Figure*));
+    figures = (Figure**)malloc(sizeof(Figure*));
 
-    current_figure = SpawnI_1Pos();
-//    current_figure = RandomFigure();
+//    current_figure = SpawnI_1Pos();
+    current_figure = RandomFigure();
     current_figure->color = RandomColor();
 
 #ifdef DEBUG_MODE
@@ -62,17 +62,19 @@ void update()
                 {
                     /* Adding new figure into 'figures' array */
                     AddFigure(current_figure);
-                    current_figure = SpawnI_1Pos();
-//                    current_figure = RandomFigure();
+//                    current_figure = SpawnI_1Pos();
+                    current_figure = RandomFigure();
                     current_figure->color = RandomColor();
 
                     /* Checking complete lines and shifting them down if they are found */
                     for (int i = 0; i < figure_counter; ++i)
+                    {
                         if (CompleteLineHandler())
                         {
                             score += 50;
                             ++complete_lines;
                         }
+                    }
                 }
 
                 for (int i = 0; i < figure_counter; ++i)
