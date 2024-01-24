@@ -7,10 +7,8 @@ float game_speed_default = 0.4f;
 bool is_game_over = false;
 
 int score = 0;
-char score_str[20];
 
 int complete_lines = 0;
-char complete_lines_str[20];
 
 void run()
 {
@@ -18,7 +16,6 @@ void run()
     update();
     unloading();
 }
-
 void startup()
 {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Tetris");
@@ -42,7 +39,9 @@ void startup()
 
     InitWalls();
 
+#ifndef DEBUG_MODE
     DisableCursor();
+#endif
     SetTargetFPS(60);
 }
 void update()
@@ -83,10 +82,10 @@ void update()
                         is_game_over = true;
                 }
 
-//#ifndef DEBUG_MODE
+#ifndef DEBUG_MODE
                 OffsetFigureY(current_figure, -1.f);
                 startTime = clock();
-//#endif
+#endif
             }
             render();
             event_handler();
@@ -121,9 +120,11 @@ void render()
 #endif
         EndMode3D();
 
+        char score_str[20];
         snprintf(score_str, 20, "Score: %d", score);
         DrawText(score_str, SCREEN_WIDTH - 10 * strlen(score_str) - 20, 10, 20, WHITE);
 
+        char complete_lines_str[20];
         snprintf(complete_lines_str, 20, "Lines: %d", complete_lines);
         DrawText(complete_lines_str, SCREEN_WIDTH - 10 * strlen(complete_lines_str) - 10, 30, 20, WHITE);
 
@@ -148,12 +149,14 @@ void event_handler()
         cube.x -= 1.f;
     else if (IsKeyPressed(KEY_RIGHT))
         cube.x += 1.f;
+    else if (IsKeyPressed(KEY_SPACE))
+        RotateFigure(&current_figure);
 #elifndef DEBUG_MODE
     if (IsKeyPressed(KEY_UP))
         RotateFigure(&current_figure);
 
     if (IsKeyDown(KEY_DOWN))
-        game_speed_active = game_speed_default / 5;
+        game_speed_active = game_speed_default / 10;
     else
         game_speed_active = game_speed_default;
 

@@ -82,7 +82,7 @@ Figure* SpawnRL_1Pos()
 Figure* SpawnRL_2Pos()
 {
     Figure *figure = (Figure*)malloc(sizeof(Figure));
-    figure->figure_type = RL_Type3;
+    figure->figure_type = RL_Type2;
     figure->block1 = (Vector3){1.f, 10.f, -18.f};
     figure->block2 = (Vector3){0.f, 9.f, -18.f};
     figure->block3 = (Vector3){-1.f, 9.f, -18.f};
@@ -92,7 +92,7 @@ Figure* SpawnRL_2Pos()
 Figure* SpawnRL_3Pos()
 {
     Figure *figure = (Figure*)malloc(sizeof(Figure));
-    figure->figure_type = RL_Type4;
+    figure->figure_type = RL_Type3;
     figure->block1 = (Vector3){1.f, 10.f, -18.f};
     figure->block2 = (Vector3){1.f, 9.f, -18.f};
     figure->block3 = (Vector3){1.f, 8.f, -18.f};
@@ -102,7 +102,7 @@ Figure* SpawnRL_3Pos()
 Figure* SpawnRL_4Pos()
 {
     Figure *figure = (Figure*)malloc(sizeof(Figure));
-    figure->figure_type = RL_Type2;
+    figure->figure_type = RL_Type4;
     figure->block1 = (Vector3){1.f, 10.f, -18.f};
     figure->block2 = (Vector3){0.f, 10.f, -18.f};
     figure->block3 = (Vector3){-1.f, 10.f, -18.f};
@@ -126,10 +126,10 @@ Figure* SpawnLL_2Pos()
 {
     Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = LL_Type2;
-    figure->block1 = (Vector3){2.f, 9.f, -18.f};
+    figure->block1 = (Vector3){0.f, 10.f, -18.f};
     figure->block2 = (Vector3){1.f, 9.f, -18.f};
     figure->block3 = (Vector3){0.f, 9.f, -18.f};
-    figure->block4 = (Vector3){0.f, 10.f, -18.f};
+    figure->block4 = (Vector3){2.f, 9.f, -18.f};
     return figure;
 }
 Figure* SpawnLL_3Pos()
@@ -146,10 +146,10 @@ Figure* SpawnLL_4Pos()
 {
     Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = LL_Type4;
-    figure->block1 = (Vector3){2.f, 8.f, -18.f};
-    figure->block2 = (Vector3){2.f, 9.f, -18.f};
-    figure->block3 = (Vector3){1.f, 9.f, -18.f};
-    figure->block4 = (Vector3){0.f, 9.f, -18.f};
+    figure->block1 = (Vector3){0.f, 10.f, -18.f};
+    figure->block2 = (Vector3){2.f, 10.f, -18.f};
+    figure->block3 = (Vector3){1.f, 10.f, -18.f};
+    figure->block4 = (Vector3){2.f, 9.f, -18.f};
     return figure;
 }
 
@@ -241,8 +241,8 @@ Figure* SpawnT_1Pos()
 {
     Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = T_Type1;
-    figure->block1 = (Vector3){0.f, 10.f, -18.f};
-    figure->block2 = (Vector3){0.f, 9.f, -18.f};
+    figure->block1 = (Vector3){0.f, 9.f, -18.f};
+    figure->block2 = (Vector3){0.f, 10.f, -18.f};
     figure->block3 = (Vector3){0.f, 8.f, -18.f};
     figure->block4 = (Vector3){1.f, 9.f, -18.f};
     return figure;
@@ -261,8 +261,8 @@ Figure* SpawnT_3Pos()
 {
     Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = T_Type3;
-    figure->block1 = (Vector3){0.f, 10.f, -18.f};
-    figure->block2 = (Vector3){0.f, 9.f, -18.f};
+    figure->block1 = (Vector3){0.f, 9.f, -18.f};
+    figure->block2 = (Vector3){0.f, 10.f, -18.f};
     figure->block3 = (Vector3){0.f, 8.f, -18.f};
     figure->block4 = (Vector3){-1.f, 9.f, -18.f};
     return figure;
@@ -328,7 +328,7 @@ Color RandomColor()
 }
 Figure* RandomFigure()
 {
-    int figure_index = rand() % 7;
+    int figure_index = rand() % 8;
     switch (figure_index)
     {
         case 0:
@@ -341,6 +341,8 @@ Figure* RandomFigure()
             return SpawnT_1Pos();
         case 4:
             return SpawnSquare();
+        case 5:
+            return SpawnLZ_1Pos();
         default:
             return SpawnRZ_1Pos();
     }

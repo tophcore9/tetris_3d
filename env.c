@@ -10,6 +10,7 @@ void DrawBackground()
                        (Color){123, 32, 43, 255},
                        (Color){23, 12, 43, 255});
 }
+
 void InitWalls()
 {
     walls.left = (Vector3){5.75f, 0.5f, -18.f};
@@ -19,6 +20,7 @@ void InitWalls()
     walls.color = GRAY;
     walls.wires_color = BLACK;
 }
+
 void DrawWalls()
 {
     DrawCube(walls.up, 11.5f, 1.f, 1.f, walls.color);
@@ -33,6 +35,3 @@ void DrawWalls()
     DrawCube(walls.right, 0.5f, 20.f, 1.f, walls.color);
     DrawCubeWires(walls.right, 0.5f, 20.f, 1.f, walls.wires_color);
 }
-
-Walls* GetWalls()
-{ return &walls; }

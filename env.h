@@ -21,6 +21,5 @@ static struct Walls
 void InitWalls();
 void DrawWalls();
 void DrawBackground();
-Walls* GetWalls();
 
 #endif //TETRIS_ENV_H

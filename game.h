@@ -14,10 +14,7 @@ extern float game_speed_default;
 extern bool is_game_over;
 
 extern int score;
-extern char score_str[20];
-
 extern int complete_lines;
-extern char complete_lines_str[20];
 
 #ifdef DEBUG_MODE
 static Vector3 cube;
