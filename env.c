@@ -35,3 +35,20 @@ void DrawWalls()
     DrawCube(walls.right, 0.5f, 20.f, 1.f, walls.color);
     DrawCubeWires(walls.right, 0.5f, 20.f, 1.f, walls.wires_color);
 }
+
+void DrawFieldGrid(Figure *active_figure)
+{
+    Color color;
+    for (int y = -9; y <= 10; ++y)
+    {
+        for (int x = -4; x <= 5; ++x)
+        {
+            if (CheckCollisionFigureX(active_figure, (float)x))
+                color = MAROON;
+            else
+                color = ColorAlpha(GRAY, 0.08f);
+
+            DrawCubeWires((Vector3){x, y, -18.5f}, 1.f, 1.f, 0.f, color);
+        }
+    }
+}

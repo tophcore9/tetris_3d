@@ -474,7 +474,7 @@ void RotateFigure(Figure** figure)
         {
             bool is_left_border = CheckCollisionFigureX(*figure, -5.f);
             bool is_right_border = CheckCollisionFigureX(*figure, 6.f);
-            
+
             if (is_left_border || is_right_border)
             {
                 if (is_left_border)     /* Push right if figure is on the left border */

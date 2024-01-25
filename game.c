@@ -7,7 +7,7 @@ float game_speed_default = 0.4f;
 bool is_game_over = false;
 
 int score = 0;
-
+float streak_k = 1;
 int complete_lines = 0;
 
 void run()
@@ -68,11 +68,13 @@ void update()
                     /* Checking complete lines and shifting them down if they are found */
                     for (int i = 0; i < figure_counter; ++i)
                     {
-                        if (CompleteLineHandler())
+                        while (CompleteLineHandler())
                         {
-                            score += 50;
+                            score += (int)(100 * streak_k);
                             ++complete_lines;
+                            streak_k += 0.5f;
                         }
+                        streak_k = 1;
                     }
                 }
 
@@ -108,12 +110,13 @@ void render()
     BeginDrawing();
         DrawBackground();
         BeginMode3D(camera);
+            DrawFieldGrid(current_figure);
+            DrawWalls();
             DrawFigure(current_figure, current_figure->color);
 
             for (int i = 0; i < figure_counter; ++i)
                 DrawFigure(figures[i], figures[i]->color);
 
-            DrawWalls();
 #ifdef DEBUG_MODE
             DrawFigure(current_figure, current_figure->color);
             DrawCubeWires(cube, 1.f, 1.f, 1.f, LIME);

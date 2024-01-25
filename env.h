@@ -3,6 +3,7 @@
 
 #include <raylib.h>
 #include <stdio.h>
+#include "figures.h"
 
 #define SCREEN_WIDTH 600
 #define SCREEN_HEIGHT 800
@@ -21,5 +22,6 @@ static struct Walls
 void InitWalls();
 void DrawWalls();
 void DrawBackground();
+void DrawFieldGrid(struct Figure *active_figure);
 
 #endif //TETRIS_ENV_H

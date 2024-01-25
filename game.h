@@ -14,6 +14,7 @@ extern float game_speed_default;
 extern bool is_game_over;
 
 extern int score;
+extern float streak_k;
 extern int complete_lines;
 
 #ifdef DEBUG_MODE
