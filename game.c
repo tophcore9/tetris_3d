@@ -5,7 +5,7 @@ Figure *current_figure = {};
 float game_speed_active = 0.4f;
 float game_speed_default = 0.4f;
 bool is_game_over = false;
-
+Music music;
 int score = 0;
 float streak_k = 1;
 int complete_lines = 0;
@@ -19,25 +19,28 @@ void run()
 void startup()
 {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Tetris");
-    srand(time(NULL));
+    InitAudioDevice();
+    InitWalls();
 
     figures = (Figure**)malloc(sizeof(Figure*));
 
-    current_figure = SpawnLL_1Pos();
-//    current_figure = RandomFigure();
+    srand(time(NULL));
+    current_figure = RandomFigure();
     current_figure->color = RandomColor();
 
 #ifdef DEBUG_MODE
     cube = (Vector3){-4.f, 10.f, -18.f};
 #endif
 
+    SetWindowIcon(LoadImage("../res/icon.png"));
+    music = LoadMusicStream("../res/song.mp3");
+    PlayMusicStream(music);
+
     camera.target = (Vector3){2.75f, 1.0f, 0.0f};
     camera.position = (Vector3){2.75f, 1.25f, 10.0f};
     camera.fovy = 45.0f;
     camera.projection = CAMERA_PERSPECTIVE;
     camera.up = (Vector3){0.0f, 1.0f, 0.0f};
-
-    InitWalls();
 
 #ifndef DEBUG_MODE
     DisableCursor();
@@ -52,6 +55,7 @@ void update()
     /* Main cycle */
     while (!WindowShouldClose())
     {
+        UpdateMusicStream(music);
         if (!is_game_over)
         {
             elapsedTime = (float) (clock() - startTime) / CLOCKS_PER_SEC;
@@ -61,7 +65,6 @@ void update()
                 {
                     /* Adding new figure into 'figures' array */
                     AddFigure(current_figure);
-//                    current_figure = SpawnI_1Pos();
                     current_figure = RandomFigure();
                     current_figure->color = RandomColor();
 
@@ -94,9 +97,9 @@ void update()
         }
         else
         {
-            for (int i = 0; i < figure_counter; ++i)
-                free(figures[i]);
-            figure_counter = 0;
+            RemoveFigures();
+            if (figures == NULL)
+                figures = (Figure**)malloc(sizeof(Figure*));
 
             BeginDrawing();
             DrawBackground();
@@ -172,4 +175,8 @@ void event_handler()
 #endif
 }
 void unloading()
-{ CloseWindow(); }
+{
+    RemoveFigures();
+    UnloadMusicStream(music);
+    CloseWindow();
+}

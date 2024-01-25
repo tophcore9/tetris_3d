@@ -490,3 +490,12 @@ void RotateFigure(Figure** figure)
         *figure = prev_pos;
     }
 }
+void RemoveFigures()
+{
+    for (int i = 0; i < figure_counter; ++i)
+        free(figures[i]);
+    free(figures);
+    figures = NULL;
+
+    figure_counter = 0;
+}

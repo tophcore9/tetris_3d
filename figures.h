@@ -74,6 +74,7 @@ Figure* SpawnT_3Pos();
 Figure* SpawnT_4Pos();
 void AddFigure(Figure* figure);
 void RotateFigure(Figure** figure);
+void RemoveFigures();
 
 
 Figure* OffsetFigureX(Figure* figure, float offsetX);
