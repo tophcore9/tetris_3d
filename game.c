@@ -23,8 +23,8 @@ void startup()
 
     figures = (Figure**)malloc(sizeof(Figure*));
 
-//    current_figure = SpawnI_1Pos();
-    current_figure = RandomFigure();
+    current_figure = SpawnLL_1Pos();
+//    current_figure = RandomFigure();
     current_figure->color = RandomColor();
 
 #ifdef DEBUG_MODE
@@ -87,8 +87,8 @@ void update()
                 startTime = clock();
 #endif
             }
-            render();
             event_handler();
+            render();
         }
         else
         {
@@ -161,10 +161,10 @@ void event_handler()
         game_speed_active = game_speed_default;
 
     if (IsKeyPressed(KEY_LEFT))
-        if (!CheckCollisionFigureX(current_figure, -4.f) && !CheckCollisionAllFigures(*current_figure, -1.f, 0))
+        if (!CheckCollisionFigureX(current_figure, -4.f) && !CheckCollisionAllFigures(*current_figure, -1.f, 0.f))
             OffsetFigureX(current_figure, -1.f);
     if (IsKeyPressed(KEY_RIGHT))
-        if (!CheckCollisionFigureX(current_figure, 5.f) && !CheckCollisionAllFigures(*current_figure, 1.f, 0))
+        if (!CheckCollisionFigureX(current_figure, 5.f) && !CheckCollisionAllFigures(*current_figure, 1.f, 0.f))
             OffsetFigureX(current_figure, 1.f);
 #endif
 }

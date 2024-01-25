@@ -118,38 +118,38 @@ Figure* SpawnLL_1Pos()
     figure->figure_type = LL_Type1;
     figure->block1 = (Vector3){1.f, 10.f, -18.f};
     figure->block2 = (Vector3){1.f, 9.f, -18.f};
-    figure->block3 = (Vector3){1.f, 8.f, -18.f};
-    figure->block4 = (Vector3){0.f, 8.f, -18.f};
+    figure->block4 = (Vector3){1.f, 8.f, -18.f};
+    figure->block3 = (Vector3){0.f, 8.f, -18.f};
     return figure;
 }
 Figure* SpawnLL_2Pos()
 {
     Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = LL_Type2;
-    figure->block1 = (Vector3){0.f, 10.f, -18.f};
-    figure->block2 = (Vector3){1.f, 9.f, -18.f};
-    figure->block3 = (Vector3){0.f, 9.f, -18.f};
-    figure->block4 = (Vector3){2.f, 9.f, -18.f};
+    figure->block1 = (Vector3){-1.f, 10.f, -18.f};
+    figure->block2 = (Vector3){0.f, 9.f, -18.f};
+    figure->block3 = (Vector3){-1.f, 9.f, -18.f};
+    figure->block4 = (Vector3){1.f, 9.f, -18.f};
     return figure;
 }
 Figure* SpawnLL_3Pos()
 {
     Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = LL_Type3;
-    figure->block1 = (Vector3){0.f, 10.f, -18.f};
-    figure->block2 = (Vector3){0.f, 9.f, -18.f};
-    figure->block3 = (Vector3){0.f, 8.f, -18.f};
-    figure->block4 = (Vector3){1.f, 10.f, -18.f};
+    figure->block1 = (Vector3){-1.f, 11.f, -18.f};
+    figure->block2 = (Vector3){-1.f, 10.f, -18.f};
+    figure->block3 = (Vector3){-1.f, 9.f, -18.f};
+    figure->block4 = (Vector3){0.f, 11.f, -18.f};
     return figure;
 }
 Figure* SpawnLL_4Pos()
 {
     Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = LL_Type4;
-    figure->block1 = (Vector3){0.f, 10.f, -18.f};
-    figure->block2 = (Vector3){2.f, 10.f, -18.f};
-    figure->block3 = (Vector3){1.f, 10.f, -18.f};
-    figure->block4 = (Vector3){2.f, 9.f, -18.f};
+    figure->block1 = (Vector3){-1.f, 10.f, -18.f};
+    figure->block2 = (Vector3){0.f, 10.f, -18.f};
+    figure->block3 = (Vector3){1.f, 9.f, -18.f};
+    figure->block4 = (Vector3){1.f, 10.f, -18.f};
     return figure;
 }
 
@@ -205,10 +205,10 @@ Figure* SpawnRZ_2Pos()
 {
     Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = RZ_Type2;
-    figure->block1 = (Vector3){2.f, 10.f, -18.f};
-    figure->block2 = (Vector3){1.f, 10.f, -18.f};
-    figure->block3 = (Vector3){1.f, 9.f, -18.f};
-    figure->block4 = (Vector3){0.f, 9.f, -18.f};
+    figure->block1 = (Vector3){1.f, 10.f, -18.f};
+    figure->block2 = (Vector3){0.f, 10.f, -18.f};
+    figure->block3 = (Vector3){0.f, 9.f, -18.f};
+    figure->block4 = (Vector3){-1.f, 9.f, -18.f};
     return figure;
 }
 
@@ -241,8 +241,8 @@ Figure* SpawnT_1Pos()
 {
     Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = T_Type1;
-    figure->block1 = (Vector3){0.f, 9.f, -18.f};
-    figure->block2 = (Vector3){0.f, 10.f, -18.f};
+    figure->block2 = (Vector3){0.f, 9.f, -18.f};
+    figure->block1 = (Vector3){0.f, 10.f, -18.f};
     figure->block3 = (Vector3){0.f, 8.f, -18.f};
     figure->block4 = (Vector3){1.f, 9.f, -18.f};
     return figure;
@@ -261,8 +261,8 @@ Figure* SpawnT_3Pos()
 {
     Figure *figure = (Figure*)malloc(sizeof(Figure));
     figure->figure_type = T_Type3;
-    figure->block1 = (Vector3){0.f, 9.f, -18.f};
-    figure->block2 = (Vector3){0.f, 10.f, -18.f};
+    figure->block2 = (Vector3){0.f, 9.f, -18.f};
+    figure->block1 = (Vector3){0.f, 10.f, -18.f};
     figure->block3 = (Vector3){0.f, 8.f, -18.f};
     figure->block4 = (Vector3){-1.f, 9.f, -18.f};
     return figure;
@@ -466,9 +466,27 @@ void RotateFigure(Figure** figure)
         }
 
         (*figure)->color = color;
-        if (!CheckCollisionAllFigures(**figure, 0.f, -abs((*figure)->block1.y - prev_pos->block1.y)))
-            OffsetFigureY(*figure, -abs((*figure)->block1.y - prev_pos->block1.y));
-        else
-            *figure = prev_pos;
+
+        OffsetFigureX(*figure, prev_pos->block2.x);
+        OffsetFigureY(*figure, -abs((*figure)->block2.y - prev_pos->block2.y));
+
+        while (true)
+        {
+            bool is_left_border = CheckCollisionFigureX(*figure, -5.f);
+            bool is_right_border = CheckCollisionFigureX(*figure, 6.f);
+            
+            if (is_left_border || is_right_border)
+            {
+                if (is_left_border)     /* Push right if figure is on the left border */
+                    OffsetFigureX(*figure, 1.f);
+                if (is_right_border)    /* Push left if figure is on the right border */
+                    OffsetFigureX(*figure, -1.f);
+            }
+            else break;
+        }
+
+        if (CheckCollisionFigureY(*figure, -10.f)       || /* If figure is on the bottom border */
+        CheckCollisionAllFigures(**figure, 0.f, 0.f))      /* If figure is on the other figure */
+        *figure = prev_pos;
     }
 }
