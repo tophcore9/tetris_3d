@@ -1,0 +1,3 @@
+C:/Users/tophcore9/Documents/Personal/Programming/_projects/tcgames/tetris/build/CMakeFiles/tetris.dir
+C:/Users/tophcore9/Documents/Personal/Programming/_projects/tcgames/tetris/build/CMakeFiles/edit_cache.dir
+C:/Users/tophcore9/Documents/Personal/Programming/_projects/tcgames/tetris/build/CMakeFiles/rebuild_cache.dir

@@ -5,7 +5,11 @@ Figure *current_figure = {};
 float game_speed_active = 0.4f;
 float game_speed_default = 0.4f;
 bool is_game_over = false;
+
 Music music;
+Sound complete_line_sfx;
+Sound place_figure_sfx;
+
 int score = 0;
 float streak_k = 1;
 int complete_lines = 0;
@@ -34,6 +38,8 @@ void startup()
 
     SetWindowIcon(LoadImage("../res/icon.png"));
     music = LoadMusicStream("../res/song.mp3");
+    complete_line_sfx = LoadSound("../res/complete line.wav");
+    place_figure_sfx = LoadSound("../res/place figure.mp3");
     PlayMusicStream(music);
 
     camera.target = (Vector3){2.75f, 1.0f, 0.0f};
@@ -71,8 +77,10 @@ void update()
                     /* Checking complete lines and shifting them down if they are found */
                     for (int i = 0; i < figure_counter; ++i)
                     {
+                        PlaySound(place_figure_sfx);
                         while (CompleteLineHandler())
                         {
+                            PlaySound(complete_line_sfx);
                             score += (int)(100 * streak_k);
                             ++complete_lines;
                             streak_k += 0.5f;
@@ -97,6 +105,7 @@ void update()
         }
         else
         {
+            StopMusicStream(music);
             RemoveFigures();
             if (figures == NULL)
                 figures = (Figure**)malloc(sizeof(Figure*));

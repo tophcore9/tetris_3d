@@ -12,7 +12,11 @@ extern Figure* current_figure;
 extern float game_speed_active;
 extern float game_speed_default;
 extern bool is_game_over;
+
 extern Music music;
+extern Sound place_figure_sfx;
+extern Sound complete_line_sfx;
+
 extern int score;
 extern float streak_k;
 extern int complete_lines;

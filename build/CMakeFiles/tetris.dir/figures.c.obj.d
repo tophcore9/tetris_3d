@@ -1,0 +1,36 @@
+CMakeFiles/tetris.dir/figures.c.obj: \
+ C:\Users\tophcore9\Documents\Personal\Programming\_projects\tcgames\tetris\figures.c \
+ C:\Users\tophcore9\Documents\Personal\Programming\_projects\tcgames\tetris\figures.h \
+ C:\Users\tophcore9\Documents\Personal\Programming\_projects\tcgames\tetris\env.h \
+ C:/Users/tophcore9/Documents/Personal/Programming/_projects/tcgames/tetris/raylib-5.0/include/raylib.h \
+ C:/Tools/mingw64-v13.2.0/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdarg.h \
+ C:/Tools/mingw64-v13.2.0/x86_64-w64-mingw32/include/stdarg.h \
+ C:/Tools/mingw64-v13.2.0/x86_64-w64-mingw32/include/_mingw_stdarg.h \
+ C:/Tools/mingw64-v13.2.0/x86_64-w64-mingw32/include/vadefs.h \
+ C:/Tools/mingw64-v13.2.0/x86_64-w64-mingw32/include/_mingw.h \
+ C:/Tools/mingw64-v13.2.0/x86_64-w64-mingw32/include/_mingw_mac.h \
+ C:/Tools/mingw64-v13.2.0/x86_64-w64-mingw32/include/_mingw_secapi.h \
+ C:/Tools/mingw64-v13.2.0/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h \
+ C:/Tools/mingw64-v13.2.0/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdbool.h \
+ C:/Tools/mingw64-v13.2.0/x86_64-w64-mingw32/include/stdio.h \
+ C:/Tools/mingw64-v13.2.0/x86_64-w64-mingw32/include/corecrt_stdio_config.h \
+ C:/Tools/mingw64-v13.2.0/x86_64-w64-mingw32/include/corecrt.h \
+ C:/Tools/mingw64-v13.2.0/x86_64-w64-mingw32/include/_mingw_off_t.h \
+ C:/Tools/mingw64-v13.2.0/x86_64-w64-mingw32/include/swprintf.inl \
+ C:/Tools/mingw64-v13.2.0/x86_64-w64-mingw32/include/sec_api/stdio_s.h \
+ C:/Tools/mingw64-v13.2.0/x86_64-w64-mingw32/include/stdlib.h \
+ C:/Tools/mingw64-v13.2.0/x86_64-w64-mingw32/include/corecrt_wstdlib.h \
+ C:/Tools/mingw64-v13.2.0/lib/gcc/x86_64-w64-mingw32/13.2.0/include/limits.h \
+ C:/Tools/mingw64-v13.2.0/lib/gcc/x86_64-w64-mingw32/13.2.0/include/syslimits.h \
+ C:/Tools/mingw64-v13.2.0/x86_64-w64-mingw32/include/limits.h \
+ C:/Tools/mingw64-v13.2.0/x86_64-w64-mingw32/include/crtdefs.h \
+ C:/Tools/mingw64-v13.2.0/x86_64-w64-mingw32/include/sec_api/stdlib_s.h \
+ C:/Tools/mingw64-v13.2.0/x86_64-w64-mingw32/include/malloc.h \
+ C:/Tools/mingw64-v13.2.0/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm_malloc.h \
+ C:/Tools/mingw64-v13.2.0/x86_64-w64-mingw32/include/errno.h \
+ C:/Tools/mingw64-v13.2.0/x86_64-w64-mingw32/include/time.h \
+ C:/Tools/mingw64-v13.2.0/x86_64-w64-mingw32/include/sys/timeb.h \
+ C:/Tools/mingw64-v13.2.0/x86_64-w64-mingw32/include/sec_api/sys/timeb_s.h \
+ C:/Tools/mingw64-v13.2.0/x86_64-w64-mingw32/include/_timeval.h \
+ C:/Tools/mingw64-v13.2.0/x86_64-w64-mingw32/include/pthread_time.h \
+ C:/Tools/mingw64-v13.2.0/x86_64-w64-mingw32/include/math.h
